@@ -1,5 +1,3 @@
-#### Core simulation function ####
-
 ## Function: getting indices of cells diagonal to all cells in a matrix
 get.diag <- function(mat){
   # indicator for all diagonals
