@@ -1,4 +1,4 @@
-#' Get indices of each diagonal for all cells in a matrix
+#' Get diagonally aligned cells for each cell in a matrix
 #'
 #' @param mat A matrix.
 #'

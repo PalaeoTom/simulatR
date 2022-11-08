@@ -1,4 +1,4 @@
-#' Get indices of each cell in same row and column for all cells in a matrix
+#' Get latitudinally and longitudinally aligned cells for each cell in a matrix
 #'
 #' @param mat A matrix.
 #'
