@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.diag.R
 \name{get.diag}
 \alias{get.diag}
-\title{Get indices of each diagonal for all cells in a matrix}
+\title{Get diagonally aligned cells for each cell in a matrix}
 \usage{
 get.diag(mat)
 }
@@ -13,7 +13,7 @@ get.diag(mat)
 A list of length(mat) where each element (i) contains the index vectors of each cell diagonally offset from mat[i].
 }
 \description{
-Get indices of each diagonal for all cells in a matrix
+Get diagonally aligned cells for each cell in a matrix
 }
 \examples{
 m = matrix(1,3,3)

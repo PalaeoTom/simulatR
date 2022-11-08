@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.latlong.R
 \name{get.latlong}
 \alias{get.latlong}
-\title{Get indices of each cell in same row and column for all cells in a matrix}
+\title{Get latitudinally and longitudinally aligned cells for each cell in a matrix}
 \usage{
 get.latlong(mat)
 }
@@ -13,7 +13,7 @@ get.latlong(mat)
 A list of length(mat) where each element (i) contains the index vectors of each cell latitudinal or longitudinally offset from mat[i].
 }
 \description{
-Get indices of each cell in same row and column for all cells in a matrix
+Get latitudinally and longitudinally aligned cells for each cell in a matrix
 }
 \examples{
 m = matrix(1,3,3)
