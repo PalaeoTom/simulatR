@@ -3,3 +3,4 @@
 export(get.diag)
 export(get.latlong)
 export(make.stage)
+import(utils)
