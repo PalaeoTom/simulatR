@@ -29,6 +29,7 @@
 #' :average" (the default) assigns the mean value.
 #'
 #' @return A basic stage object.
+#' @import utils
 #' @export
 #'
 #' @examples
