@@ -17,5 +17,5 @@ Get latitudinally and longitudinally aligned cells for each cell in a matrix
 }
 \examples{
 m = matrix(1,3,3)
-diagonals <- get.latlong(m)
+latlongs <- get.latlong(m)
 }

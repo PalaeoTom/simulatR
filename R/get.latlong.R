@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' m = matrix(1,3,3)
-#' diagonals <- get.latlong(m)
+#' latlongs <- get.latlong(m)
 get.latlong <- function(mat){
   # get cells that can be reached via a latitudinal or longitudinal migration for each cell
   cardinals <- lapply(1:length(mat), function(x){
