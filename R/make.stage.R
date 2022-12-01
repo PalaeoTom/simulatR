@@ -209,5 +209,3 @@ make.stage <- function(n.col, n.row, ar, export = F, name.out = "new", distance.
   }
   return(out)
 }
-
-test <- make.stage(3,3,400)

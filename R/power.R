@@ -1,0 +1,3 @@
+power <- function(area){
+
+}
