@@ -16,7 +16,7 @@ which(sapply(1:length(SA), function(z) any(is.na(SA[[z]]))))
 
 ## Get power model parameters for each dataset
 power <- t(as.data.frame(lapply(1:length(SA), function(z) sar_power(SA[[z]])$par)))
-rownames(pars) = NULL
+rownames(power) = NULL
 
 ## Export parameters
 setwd("~/Desktop/simulatR/datasets/")
@@ -24,4 +24,4 @@ write.csv(power, file = "power.csv")
 
 ## Now to add it to simulatR
 setwd("/Users/tjs/R_packages/R_projects/simulatR")
-usethis::use_data(power, overwrite = TRUE, compress = "xz")
+usethis::use_data(power, overwrite = TRUE, internal = T, compress = "xz")

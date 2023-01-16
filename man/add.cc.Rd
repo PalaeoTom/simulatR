@@ -2,7 +2,7 @@
 % Please edit documentation in R/add.cc.R
 \name{add.cc}
 \alias{add.cc}
-\title{Title}
+\title{Add carrying capacity to stage using distributions of parameters derived from Matthews et al.}
 \usage{
 add.cc(stage, load = F, model = "power", name.out = "new", export = F)
 }
@@ -10,5 +10,5 @@ add.cc(stage, load = F, model = "power", name.out = "new", export = F)
 \item{export}{}
 }
 \description{
-Title
+Add carrying capacity to stage using distributions of parameters derived from Matthews et al.
 }
