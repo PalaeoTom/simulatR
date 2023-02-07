@@ -6,18 +6,20 @@
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
 #' @param export If TRUE, updated stage with carrying capacities is exported as an Rds file to working directory.
 #'
+#' @import stats
+#'
 #' @return A stage object with element "cc" added.
 #' @export
 #'
 #' @examples
-#' #' # create a mock stage object
+#' # create a mock stage object
 #' s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3),
 #' "distances" = matrix(20, 9, 9))
 #'
 #' # check object and assign "stage" class if it conforms.
 #' stage <- check.stage(s)
 #'
-#' add carrying capacities
+#' # add carrying capacities
 #' stage.cc <- add.cc(stage)
 add.cc <- function(stage, load = F, model = "power", name.out = "new", export = F){
   ## if load is TRUE, read in stage from Rds object

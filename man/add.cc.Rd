@@ -2,13 +2,35 @@
 % Please edit documentation in R/add.cc.R
 \name{add.cc}
 \alias{add.cc}
-\title{Add carrying capacity to stage using distributions of parameters derived from Matthews et al.}
+\title{Add carrying capacity to stage using distributions of parameters derived from Matthews et al. data}
 \usage{
 add.cc(stage, load = F, model = "power", name.out = "new", export = F)
 }
 \arguments{
-\item{export}{}
+\item{stage}{A stage object or, if load = TRUE, the name of the stage Rds file as a string.}
+
+\item{load}{If TRUE and argument "stage" is a string, stage is read in from working directory using the latter as the file name (minus the .Rds suffix). The stage must be stored as an Rds file. Default is FALSE.}
+
+\item{model}{Species-area model used to calculate carrying capacity. Default is power model (Arrhenius, 1921).}
+
+\item{name.out}{If export = TRUE, a string that specifies the name of the output file.}
+
+\item{export}{If TRUE, updated stage with carrying capacities is exported as an Rds file to working directory.}
+}
+\value{
+A stage object with element "cc" added.
 }
 \description{
-Add carrying capacity to stage using distributions of parameters derived from Matthews et al.
+Add carrying capacity to stage using distributions of parameters derived from Matthews et al. data
+}
+\examples{
+# create a mock stage object
+s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3),
+"distances" = matrix(20, 9, 9))
+
+# check object and assign "stage" class if it conforms.
+stage <- check.stage(s)
+
+# add carrying capacities
+stage.cc <- add.cc(stage)
 }

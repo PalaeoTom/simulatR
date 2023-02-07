@@ -32,3 +32,6 @@ s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3)
 stage <- check.stage(s)
 
 }
+\references{
+Arrhenius, O. (1921). Species and area. \emph{Journal of Ecology}, 9, 95-99.
+}

@@ -6,6 +6,8 @@
 #'
 #' @param area A matrix specifying the size (in hectares) of each region of a stage.
 #'
+#' @import stats
+#'
 #' @references Arrhenius, O. (1921). Species and area. \emph{Journal of Ecology}, 9, 95-99.
 #'
 #' @return A matrix specifying the species carrying capacity of each region of a stage.
