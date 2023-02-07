@@ -10,6 +10,8 @@
 #' @param name.out A string to be included in the Rds output file name if export = TRUE. Default is "new".
 #' @param export If TRUE, stage will be saved as an Rds file. Default is FALSE.
 #'
+#' @references Arrhenius, O. (1921). Species and area. \emph{Journal of Ecology}, 9, 95-99.
+#'
 #' @return A basic stage object.
 #' @export
 #'
