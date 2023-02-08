@@ -36,9 +36,8 @@ SAR_power <- function(area, non0 = F){
         cc[i] <- round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*area[i]^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0)
       }
     }
+    return(cc)
   } else {
     cc <- apply(cc, c(1,2), function(x) round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*x^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0))
   }
 }
-
-

@@ -53,7 +53,7 @@ check.stage <- function(input, name.out = "new", export = F){
     stop("some distances (input[[3]]) between regions (input[[1]]) are missing")
   }
   # if everything checks out, say so
-  message("Object conforms is a stage")
+  message("Object is a stage")
   # assign status
   out <- structure(input, class = "stage")
   ## export if set
