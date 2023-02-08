@@ -3,10 +3,13 @@
 #' @param stage A stage object or, if load = TRUE, the name of the stage Rds file as a string.
 #' @param load If TRUE and argument "stage" is a string, stage is read in from working directory using the latter as the file name (minus the .Rds suffix). The stage must be stored as an Rds file. Default is FALSE.
 #' @param model Species-area model used to calculate carrying capacity. Default is power model (Arrhenius, 1921).
+#' @param power.non0 If TRUE, all carrying capacities estimated by the default power model will be 1 or higher (i.e. no zeros). Default is FALSE.
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
 #' @param export If TRUE, updated stage with carrying capacities is exported as an Rds file to working directory.
 #'
 #' @import stats
+#'
+#' @references Arrhenius, O. (1921). Species and area. \emph{Journal of Ecology}, 9, 95-99.
 #'
 #' @return A stage object with element "cc" added.
 #' @export
@@ -21,7 +24,7 @@
 #'
 #' # add carrying capacities
 #' stage.cc <- add.cc(stage)
-add.cc <- function(stage, load = F, model = "power", name.out = "new", export = F){
+add.cc <- function(stage, load = F, model = "power", power.non0 = F, name.out = "new", export = F){
   ## if load is TRUE, read in stage from Rds object
   if(load){
     ## read in
@@ -38,7 +41,7 @@ add.cc <- function(stage, load = F, model = "power", name.out = "new", export = 
   }
   ## transform area into carrying capacity object using specified model. Default is power.
   if(model == "power"){
-    carrying.capacity <- SAR_power(dimensions)
+    carrying.capacity <- SAR_power(dimensions, non0 = power.non0)
   } else {
     carrying.capacity <- model(dimensions)
   }

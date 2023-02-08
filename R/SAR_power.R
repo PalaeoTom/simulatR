@@ -5,6 +5,7 @@
 #' Matthews et al. (in prep).
 #'
 #' @param area A matrix specifying the size (in hectares) of each region of a stage.
+#' @param non0 If TRUE, all regions will have a carrying capacity of at least 1 species. Default is FALSE.
 #'
 #' @import stats
 #'
@@ -19,15 +20,25 @@
 #'
 #' # estimate species carrying capacity for each region
 #' capacities <- SAR_power(example)
-SAR_power <- function(area){
+SAR_power <- function(area, non0 = F){
   ## check input is a matrix
   if(!is.matrix(area)){
     stop("input is not a matrix")
   }
-  ## create empty frame
+  ## create base matrx
   cc <- area
   ## apply transformation using power SAR
-  cc <- apply(cc, c(1,2), function(x) round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*x^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0))
+  if(non0){
+    cc <- apply(cc, c(1,2), function(x) round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*x^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0))
+    ## re-estimate all zero values
+    while(any(cc == 0)){
+      for(i in which(cc == 0)){
+        cc[i] <- round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*area[i]^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0)
+      }
+    }
+  } else {
+    cc <- apply(cc, c(1,2), function(x) round(rweibull(1, shape = 0.844303639, scale = 14.94743187)*x^rweibull(1, shape = 1.81851964, scale = 0.231839438), digits = 0))
+  }
 }
 
 
