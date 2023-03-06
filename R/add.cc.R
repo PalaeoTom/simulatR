@@ -1,7 +1,6 @@
 #' Add carrying capacity to stage using distributions of parameters derived from Matthews et al. data
 #'
-#' @param stage A stage object or, if load = TRUE, the name of the stage Rds file as a string.
-#' @param load If TRUE and argument "stage" is a string, stage is read in from working directory using the latter as the file name (minus the .Rds suffix). The stage must be stored as an Rds file. Default is FALSE.
+#' @param stage A stage object or the name of the stage Rds file as a string.
 #' @param model Species-area model used to calculate carrying capacity. Default is power model (Arrhenius, 1921).
 #' @param power.non0 If TRUE, all carrying capacities estimated by the default power model will be 1 or higher (i.e. no zeros). Default is FALSE.
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
@@ -24,20 +23,20 @@
 #'
 #' # add carrying capacities
 #' stage.cc <- add.cc(stage)
-add.cc <- function(stage, load = F, model = "power", power.non0 = F, name.out = "new", export = F){
+add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", export = F){
   ## if load is TRUE, read in stage from Rds object
-  if(load){
+  if(is.object(stage)){
+    ## check stage
+    stage0 <- check.stage(stage)
+    ## isolate dimensions
+    dimensions <- stage0$"dimensions"
+  } else {
     ## read in
     stage <- readRDS(paste0(stage, ".Rds"))
     ## check stage
-    stage <- check.stage(stage)
+    stage0 <- check.stage(stage0)
     ## isolate dimensions
-    dimensions <- stage$"dimensions"
-  } else {
-    ## check stage
-    stage <- check.stage(stage)
-    ## isolate dimensions
-    dimensions <- stage$"dimensions"
+    dimensions <- stage0$"dimensions"
   }
   ## transform area into carrying capacity object using specified model. Default is power.
   if(model == "power"){
@@ -45,14 +44,15 @@ add.cc <- function(stage, load = F, model = "power", power.non0 = F, name.out = 
   } else {
     carrying.capacity <- model(dimensions)
   }
-  ## append carrying capacity element to new version of stage object
-  out <- stage
-  out[[length(stage)+1]] <- carrying.capacity
-  names(out)[length(stage)+1] <- "carrying.capacity"
+  ## append carrying capacity element to new version of stage0 object
+  stage1 <- stage0
+  stage1[[length(stage0)+1]] <- carrying.capacity
+  names(stage1)[length(stage0)+1] <- "carrying.capacity"
   ## export if set
   if(export){
-    saveRDS(out, file = paste0(name.out, "_stage.Rds"))
+    saveRDS(stage1, file = paste0(name.out, "_stage0.Rds"))
+  } else {
+  return(stage1)
   }
-  return(out)
 }
 
