@@ -21,7 +21,7 @@
 #' new.variable <- matrix(10,3,3)
 #' new.stage1 <- add.var.stage(stage = stage, var = new.variable, var.name = "new.var1")
 #'
-#' Define function to define new variable
+#' # Define function to define new variable
 #' new.variable.function <- function(stage){
 #' var0 <- stage[["dimensions"]]
 #' var1 <- sqrt(var0)

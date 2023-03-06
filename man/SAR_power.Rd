@@ -4,10 +4,12 @@
 \alias{SAR_power}
 \title{Calculate carrying capacity for each region using power model with default parameters}
 \usage{
-SAR_power(area)
+SAR_power(area, non0 = F)
 }
 \arguments{
 \item{area}{A matrix specifying the size (in hectares) of each region of a stage.}
+
+\item{non0}{If TRUE, all regions will have a carrying capacity of at least 1 species. Default is FALSE.}
 }
 \value{
 A matrix specifying the species carrying capacity of each region of a stage.

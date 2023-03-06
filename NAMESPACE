@@ -2,6 +2,7 @@
 
 export(SAR_power)
 export(add.cc)
+export(add.var.stage)
 export(check.stage)
 export(get.diag)
 export(get.latlong)
