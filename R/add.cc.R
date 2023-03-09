@@ -1,5 +1,8 @@
 #' Add carrying capacity to stage using distributions of parameters derived from Matthews et al. data
 #'
+#' add.cc adds an element to an existing stage object specifying the species carrying capacity of the region. Can estimate carrying capacities
+#' using the power model (Arrhenius, 1921) or another model specified by the user.
+#'
 #' @param stage A stage object or the name of the stage Rds file as a string.
 #' @param model Species-area model used to calculate carrying capacity. Default is power model (Arrhenius, 1921).
 #' @param power.non0 If TRUE, all carrying capacities estimated by the default power model will be 1 or higher (i.e. no zeros). Default is FALSE.

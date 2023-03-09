@@ -5,6 +5,8 @@
 #' @return A list of length(mat) where each element (i) contains the index vectors of each cell diagonally offset from mat[i].
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' m = matrix(1,3,3)
 #' diagonals <- get.diag(m)

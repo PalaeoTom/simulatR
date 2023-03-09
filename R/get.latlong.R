@@ -5,6 +5,8 @@
 #' @return A list of length(mat) where each element (i) contains the index vectors of each cell latitudinal or longitudinally offset from mat[i].
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' m = matrix(1,3,3)
 #' latlongs <- get.latlong(m)

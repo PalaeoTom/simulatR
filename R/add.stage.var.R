@@ -1,5 +1,8 @@
 #' Add variable to stage
 #'
+#' add.stage.var adds an element to an existing stage object. The new element should be provided either as a function, which uses the existing stage variables as inputs, or as a matrix
+#' with the same dimensions of the 'regions' stage element, where each cell of the matrix specifies the value of the new variable for the corresponding region.
+#'
 #' @param stage A stage object or the name of the stage Rds file as a string.
 #' @param var A function specifying how the variable should be calculated using existing stage elements OR a matrix of the same dimensions as the 'regions' stage element, specifying the variable value for each region.
 #' @param var.name A string specifying name of new variable. Default = "new.variable".
