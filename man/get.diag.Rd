@@ -19,3 +19,4 @@ Get diagonally aligned cells for each cell in a matrix
 m = matrix(1,3,3)
 diagonals <- get.diag(m)
 }
+\keyword{internal}

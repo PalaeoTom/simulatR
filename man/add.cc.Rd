@@ -21,7 +21,8 @@ add.cc(stage, model = "power", power.non0 = F, name.out = "new", export = F)
 A stage object with element "cc" added.
 }
 \description{
-Add carrying capacity to stage using distributions of parameters derived from Matthews et al. data
+add.cc adds an element to an existing stage object specifying the species carrying capacity of the region. Can estimate carrying capacities
+using the power model (Arrhenius, 1921) or another model specified by the user.
 }
 \examples{
 # create a mock stage object

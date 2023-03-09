@@ -19,3 +19,4 @@ Get latitudinally and longitudinally aligned cells for each cell in a matrix
 m = matrix(1,3,3)
 latlongs <- get.latlong(m)
 }
+\keyword{internal}
