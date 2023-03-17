@@ -9,10 +9,6 @@ set.pop.var.seeds(
   abundance = "default",
   gen.het = "default",
   min.via.pop = "default",
-  V.cutoff = 0,
-  A.cutoff = 10,
-  GH.cutoff = 0,
-  MVP.cutoff = 10,
   new.var.name = "new.variable",
   new.var.seed = NULL,
   name.out = "new",
@@ -27,14 +23,6 @@ set.pop.var.seeds(
 \item{gen.het}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
 \item{min.via.pop}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
-
-\item{V.cutoff}{If vagility = "default", a numeric value specifying the largest vagility value that will be re-sampled. Default is 0.}
-
-\item{A.cutoff}{If abundance = "default", a numeric value specifying the minimum acceptable abundance value. Default is 10.}
-
-\item{GH.cutoff}{If gen.het = "default", a numeric value specifying the largest gen.het value that will be re-sampled. Default is 0.}
-
-\item{MVP.cutoff}{If min.via.pop = "default", a numeric value specifying the the minimum acceptable min.via.pop value. Default is 10.}
 
 \item{new.var.name}{If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables.}
 

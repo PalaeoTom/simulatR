@@ -10,10 +10,6 @@
 #' @param abundance Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param gen.het Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param min.via.pop Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
-#' @param A.cutoff If abundance = "default", a numeric value specifying the minimum acceptable abundance value. Default is 10.
-#' @param V.cutoff If vagility = "default", a numeric value specifying the largest vagility value that will be re-sampled. Default is 0.
-#' @param GH.cutoff If gen.het = "default", a numeric value specifying the largest gen.het value that will be re-sampled. Default is 0.
-#' @param MVP.cutoff If min.via.pop = "default", a numeric value specifying the the minimum acceptable min.via.pop value. Default is 10.
 #' @param new.var.name If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables.
 #' @param new.var.seed A function or list of functions specifying how the initial values for the new variables are derived for a population.
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
@@ -28,9 +24,9 @@
 #' # Generate pop.var.seeds object
 #' pop.seeds <- set.pop.var.seeds
 #'
-set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.het = "default", min.via.pop = "default", V.cutoff = 0, A.cutoff = 10, GH.cutoff = 0, MVP.cutoff = 10, new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
+set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.het = "default", min.via.pop = "default", new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
   ## base function for seeding population vagility
-  if(vagility == "default") seed.V <- seed.vagility(V.cutoff)
+  if(vagility == "default") seed.V <- seed.vagility
   if(vagility == "off") seed.V <- NA
   if(!vagility == "default" && !vagility == "off" && is.function(vagility)){
     seed.V <- vagility
@@ -39,7 +35,7 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
     stop("provided vagility seeding method is not a function")
   }
   ## base function for seeding population abundance
-  if(abundance == "default") seed.A <- seed.abundance(A.cutoff)
+  if(abundance == "default") seed.A <- seed.abundance
   if(abundance == "off") seed.A <- NA
   if(!abundance == "default" && !abundance == "off" && is.function(abundance)){
     seed.A <- abundance
@@ -48,7 +44,7 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
     stop("provided abundance seeding method is not a function")
   }
   ## base function for seeding population gen.het
-  if(gen.het == "default") seed.GH <- seed.gen.het(GH.cutoff)
+  if(gen.het == "default") seed.GH <- seed.gen.het
   if(gen.het == "off") seed.GH <- NA
   if(!gen.het == "default" && !gen.het == "off" && is.function(gen.het)){
     seed.GH <- gen.het
@@ -57,7 +53,7 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
     stop("provided gen.het seeding method is not a function")
   }
   ## base function for seeding population min.via.pop
-  if(min.via.pop == "default") seed.MVP <- seed.min.via.pop(MVP.cutoff)
+  if(min.via.pop == "default") seed.MVP <- seed.min.via.pop
   if(min.via.pop == "off") seed.MVP <- NA
   if(!min.via.pop == "default" && !min.via.pop == "off" && is.function(min.via.pop)){
     seed.MVP <- min.via.pop
@@ -91,3 +87,5 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
     return(output)
   }
 }
+
+test <- set.pop.var.seeds()
