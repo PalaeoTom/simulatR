@@ -9,6 +9,7 @@ set.pop.var.seeds(
   abundance = "default",
   gen.het = "default",
   min.via.pop = "default",
+  stable.seeds = F,
   new.var.name = "new.variable",
   new.var.seed = NULL,
   name.out = "new",
@@ -23,6 +24,8 @@ set.pop.var.seeds(
 \item{gen.het}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
 \item{min.via.pop}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
+
+\item{stable.seeds}{If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.}
 
 \item{new.var.name}{If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables.}
 
