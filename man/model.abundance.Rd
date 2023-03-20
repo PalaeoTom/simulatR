@@ -2,13 +2,32 @@
 % Please edit documentation in R/model.abundance.R
 \name{model.abundance}
 \alias{model.abundance}
-\title{Default model for changes in abundance over time}
+\title{Default abundance model}
 \usage{
-model.abundance(A0, MVP, time, factor = 1)
+model.abundance(a0, min.via.pop = F, MVP.value, t0, t1, SF = 1)
 }
 \arguments{
-\item{factor}{}
+\item{a0}{a numeric value specifying abundance in previous time bin.}
+
+\item{min.via.pop}{if TRUE, populations with a0 below MVP.value will have a greater likelihood of declining (the further below MVP.value, the greater the likelihood). Default is FALSE.}
+
+\item{MVP.value}{the minimum viable population number used if min.via.pop = TRUE.}
+
+\item{t0}{time of previous time bin.}
+
+\item{t1}{time of current time bin.}
+
+\item{SF}{a numeric value by which the changes in abundance can be scaled.}
+}
+\value{
+a numeric value.
 }
 \description{
-Default model for changes in abundance over time
+Changes are drawn from normal distributions where the standard deviation is the product of the magnitude of the previous abundance, the time passed, and a factor (SF). If min.via.pop is TRUE
+and the abundance of the population is below MVP.value, then the mean of this normal distribution shifts by the difference.
 }
+\examples{
+# Run the function
+model.abundance(a0 = 20, t0 = 1, t1 = 2)
+}
+\keyword{internal}
