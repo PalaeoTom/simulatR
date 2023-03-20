@@ -29,15 +29,19 @@
 add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", export = F){
   ## if load is TRUE, read in stage from Rds object
   if(is.object(stage)){
-    ## check stage
-    stage0 <- check.stage(stage)
+    # check stage
+    if(!class(stage)=="stage"){
+      stop("stage is not a stage object")
+    }
     ## isolate dimensions
     dimensions <- stage0$"dimensions"
   } else {
     ## read in
     stage <- readRDS(paste0(stage, ".Rds"))
-    ## check stage
-    stage0 <- check.stage(stage0)
+    # check stage
+    if(!class(stage)=="stage"){
+      stop("stage is not a stage object")
+    }
     ## isolate dimensions
     dimensions <- stage0$"dimensions"
   }
