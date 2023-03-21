@@ -59,6 +59,7 @@ check.stage <- function(input, name.out = "new", export = F){
   ## export if set
   if(export){
     saveRDS(out, file = paste0(name.out, "_stage.Rds"))
-  }
+  } else {
   return(out)
+  }
 }
