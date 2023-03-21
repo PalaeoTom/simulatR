@@ -102,11 +102,11 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         }
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP.abundance, new.var.seed)
-        names(output) <- c("seed.vagility", "seed.gen.het", "seed.min.via.pop.abundance", paste0("seed.",new.var.name))
+        names(output) <- c("vagility", "gen.het", "min.via.pop.abundance", new.var.name)
         output <- structure(output[!is.na(output)], class = "pop.var.seeds")
       } else {
         output <- c(seed.V, seed.GH, seed.MVP.abundance)
-        names(output) <- c("seed.vagility", "seed.gen.het", "seed.min.via.pop.abundance")
+        names(output) <- c("vagility", "gen.het", "min.via.pop.abundance")
         output <- structure(output[!is.na(output)], class = "pop.var.seeds")
       }
     } else {
@@ -122,18 +122,28 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         }
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP, seed.A, new.var.seed)
-        names(output) <- c("seed.vagility", "seed.gen.het", "seed.min.via.pop", "seed.abundance", paste0("seed.",new.var.name))
+        names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance", new.var.name)
         output <- structure(output[!is.na(output)], class = "pop.var.seeds")
       } else {
         output <- c(seed.V, seed.GH, seed.MVP, seed.A)
-        names(output) <- c("seed.vagility", "seed.gen.het", "seed.min.via.pop", "seed.abundance")
+        names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance")
         output <- structure(output[!is.na(output)], class = "pop.var.seeds")
       }
     }
+  ## add element with names
+  variables <- names(output)
+  ## split names of abundance and min.via.pop
+  if(any(variables == "min.via.pop.abundance")){
+    variables <- c(  variables[which(which(!variables == "min.via.pop.abundance") < which(variables == "min.via.pop.abundance"))],
+                     "min.via.pop", "abundance",
+                     variables[which(which(!variables == "min.via.pop.abundance") > which(variables == "min.via.pop.abundance"))])
+  }
+  ## add to end of output
+  final <- c(output, "variables" = list(variables))
   ## export if set
   if(export){
-    saveRDS(output, file = paste0(name.out, "_pop_var_seeds.Rds"))
+    saveRDS(final, file = paste0(name.out, "_pop_var_seeds.Rds"))
   } else {
-    return(output)
+    return(final)
   }
 }
