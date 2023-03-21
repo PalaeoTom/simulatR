@@ -103,11 +103,11 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP.abundance, new.var.seed)
         names(output) <- c("vagility", "gen.het", "min.via.pop.abundance", new.var.name)
-        output <- structure(output[!is.na(output)], class = "pop.var.seeds")
+        output <- output[!is.na(output)]
       } else {
         output <- c(seed.V, seed.GH, seed.MVP.abundance)
         names(output) <- c("vagility", "gen.het", "min.via.pop.abundance")
-        output <- structure(output[!is.na(output)], class = "pop.var.seeds")
+        output <- output[!is.na(output)]
       }
     } else {
       ## configure final output if additional variables are provided
@@ -123,11 +123,11 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP, seed.A, new.var.seed)
         names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance", new.var.name)
-        output <- structure(output[!is.na(output)], class = "pop.var.seeds")
+        output <- output[!is.na(output)]
       } else {
         output <- c(seed.V, seed.GH, seed.MVP, seed.A)
         names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance")
-        output <- structure(output[!is.na(output)], class = "pop.var.seeds")
+        output <- output[!is.na(output)]
       }
     }
   ## add element with names
@@ -140,6 +140,7 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
   }
   ## add to end of output
   final <- c(output, "variables" = list(variables))
+  final <- structure(final, class = "pop.var.seeds")
   ## export if set
   if(export){
     saveRDS(final, file = paste0(name.out, "_pop_var_seeds.Rds"))
