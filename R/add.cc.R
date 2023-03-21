@@ -51,10 +51,10 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
   } else {
     carrying.capacity <- model(dimensions)
   }
-  ## append carrying capacity element to new version of stage0 object
-  stage1 <- stage0
-  stage1[[length(stage0)+1]] <- carrying.capacity
-  names(stage1)[length(stage0)+1] <- "carrying.capacity"
+  ## append carrying capacity element to new version of stage object
+  stage1 <- stage
+  stage1[[length(stage)+1]] <- carrying.capacity
+  names(stage1)[length(stage)+1] <- "carrying.capacity"
   ## export if set
   if(export){
     saveRDS(stage1, file = paste0(name.out, "_stage.Rds"))
