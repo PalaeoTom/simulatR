@@ -1,8 +1,3 @@
-stage <- stage
-p0 <- seed.pops
-t0 <- times[1]
-t1 <- times[2]
-
 dispersal <- function(stage, p0, t0, t1, SF = 1){
   ## get distances between regions
   distances <- stage[[3]]
