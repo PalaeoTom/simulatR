@@ -1,6 +1,6 @@
 #' Default abundance model
 #'
-#' Changes are drawn from normal distributions where the standard deviation is the product of the magnitude of the previous abundance, the time passed, and a factor (SF). If min.via.pop is TRUE
+#' Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF). If min.via.pop is TRUE
 #' and the abundance of the population is below MVP.value, then the mean of this normal distribution shifts by the difference.
 #'
 #' @param a0 a numeric value specifying abundance in previous time bin.
@@ -19,20 +19,20 @@
 #' # Run the function
 #' model.abundance(a0 = 20, t0 = 1, t1 = 2)
 model.abundance <- function(a0, min.via.pop = F, MVP.value, t0, t1, SF = 1){
-  ## scale SD by time, magnitude of previous abundance and factor
-  scale.F <- (10^(floor(log10(a0))))*(t1-t0)*SF
+  ## scale SD by time elapsed and factor
+  scale.F <- (t1-t0)*SF
   ## If min.via.pop provided, determine whether abundance is
   if(min.via.pop){
     ## if a0 => MVP.value
     if(a0 >= MVP.value){
-      a1 <- a0 + rnorm(1, mean = 0, sd = scale.F)
+      a1 <- a0 + round(rnorm(1, mean = 0, sd = scale.F), digits = 0)
     } else {
-      a1 <- a0 + rnorm(1, mean = a0-MVP.value, sd = scale.F)
+      a1 <- a0 + round(rnorm(1, mean = a0-MVP.value, sd = scale.F), digits = 0)
     }
     ## return a1
     return(a1)
   } else {
-    a1 <- a0 + rnorm(1, mean = 0, sd = scale.F)
+    a1 <- a0 + round(rnorm(1, mean = 0, sd = scale.F), digits = 0)
     ## return a1
     return(a1)
   }

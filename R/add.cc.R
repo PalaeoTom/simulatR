@@ -34,7 +34,7 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
       stop("stage is not a stage object")
     }
     ## isolate dimensions
-    dimensions <- stage$"dimensions"
+    dimensions <- stage[[2]]
   } else {
     ## read in
     stage <- readRDS(paste0(stage, ".Rds"))
@@ -43,7 +43,7 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
       stop("stage is not a stage object")
     }
     ## isolate dimensions
-    dimensions <- stage$"dimensions"
+    dimensions <- stage[[2]]
   }
   ## transform area into carrying capacity object using specified model. Default is power.
   if(model == "power"){

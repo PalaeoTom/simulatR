@@ -1,13 +1,13 @@
 #' Set population variables
 #'
 #' set.pop.var.seeds generates a pop.var.seeds object which specifies the population variables for a simulation and defines how their initial values will be derived. Core variables
-#' are abundance, genetic heterogeneity (gen.het), minimum viable population (min.via.pop), and vagility. By default, abundance and minimum viable population numbers are
-#' drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while vagility and gen.het values are derived from uniform distributions
-#' bounded between 0 and 1, with values of 0 being resampled. All four core variables are included in the output by default. However, they can be switched off or replaced with custom functions if desired.
-#' TThis function also allows for additional custom population variables to be added as input-less functions.
+#' are abundance, genetic heterogeneity (gen.het), minimum viable population (min.via.pop), and average dispersal distance (avg.disp.dist). By default, abundance and minimum viable population numbers are
+#' drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while the avg.disp.dist values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
+#' By default, the gen.het values are derived from uniform distributions bounded between 0 and 1. gen.het and avg.disp.dist values of 0 are resampled by default. All four core variables are included in the output by default.
+#' However, min.via.pop and gen.het can be switched off, and all four can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
 #'
-#' @param vagility Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
-#' @param abundance Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
+#' @param avg.disp.dist Either "default" (the default), or a function which specifies how the initial value is derived for a population.
+#' @param abundance Either "default" (the default) or a function which specifies how the initial value is derived for a population.
 #' @param gen.het Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param min.via.pop Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param stable.seeds If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.
@@ -17,6 +17,7 @@
 #' @param export If TRUE, updated stage with new variable is exported as an Rds file to working directory.
 #'
 #' @references Traill, L. W., Bradshaw, C. J. A., & Brook, B. W. (2007). Minimum viable population size: A meta-analysis of 30 years of published estimates. \emph{Biological Conservation}, 139, 156-166.
+#' @references Kinlan, B. P. & Gaines, S. D. (2003). Propagule dispersal in marine and terrestrial environments: a community perspective. \emph{Ecology}, 84, 2007-2020.
 #'
 #' @return A pop.var.seeds object.
 #' @export
@@ -25,15 +26,14 @@
 #' # Generate pop.var.seeds object
 #' pop.seeds <- set.pop.var.seeds
 #'
-set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.het = "default", min.via.pop = "default", stable.seeds = F, new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
-  ## base function for seeding population vagility
-  if(vagility == "default") seed.V <- seed.vagility
-  if(vagility == "off") seed.V <- NA
-  if(!vagility == "default" && !vagility == "off" && is.function(vagility)){
-    seed.V <- vagility
+set.pop.var.seeds <- function(avg.disp.dist = "default", abundance = "default", gen.het = "default", min.via.pop = "default", stable.seeds = F, new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
+  ## base function for seeding population avg.disp.dist
+  if(avg.disp.dist == "default") seed.V <- seed.avg.disp.dist
+  if(!avg.disp.dist == "default" && !avg.disp.dist == "off" && is.function(avg.disp.dist)){
+    seed.V <- avg.disp.dist
   }
-  if(!vagility == "default" && !vagility == "off" && !is.function(vagility)){
-    stop("provided vagility seeding method is not a function")
+  if(!avg.disp.dist == "default" && !avg.disp.dist == "off" && !is.function(avg.disp.dist)){
+    stop("provided avg.disp.dist seeding method is not a function")
   }
   ## base function for seeding population gen.het
   if(gen.het == "default") seed.GH <- seed.gen.het
@@ -61,8 +61,6 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
   }
   ## default abundance
   if(abundance == "default") seed.A <- seed.abundance
-  ## abundance off
-  if(abundance == "off") seed.A <- NA
   ## custom abundance
   if(!abundance == "default" && !abundance == "off" && is.function(abundance)){
     seed.A <- abundance
@@ -102,11 +100,11 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         }
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP.abundance, new.var.seed)
-        names(output) <- c("vagility", "gen.het", "min.via.pop.abundance", new.var.name)
+        names(output) <- c("avg.disp.dist", "gen.het", "min.via.pop.abundance", new.var.name)
         output <- output[!is.na(output)]
       } else {
         output <- c(seed.V, seed.GH, seed.MVP.abundance)
-        names(output) <- c("vagility", "gen.het", "min.via.pop.abundance")
+        names(output) <- c("avg.disp.dist", "gen.het", "min.via.pop.abundance")
         output <- output[!is.na(output)]
       }
     } else {
@@ -122,11 +120,11 @@ set.pop.var.seeds <- function(vagility = "default", abundance = "default", gen.h
         }
         # now checks are complete, create final output as list
         output <- c(seed.V, seed.GH, seed.MVP, seed.A, new.var.seed)
-        names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance", new.var.name)
+        names(output) <- c("avg.disp.dist", "gen.het", "min.via.pop", "abundance", new.var.name)
         output <- output[!is.na(output)]
       } else {
         output <- c(seed.V, seed.GH, seed.MVP, seed.A)
-        names(output) <- c("vagility", "gen.het", "min.via.pop", "abundance")
+        names(output) <- c("avg.disp.dist", "gen.het", "min.via.pop", "abundance")
         output <- output[!is.na(output)]
       }
     }
