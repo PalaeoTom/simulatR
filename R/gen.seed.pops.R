@@ -26,6 +26,11 @@
 #'
 #' # Now generate seed populations
 #' seed.pops <- gen.seed.pops(stage = s, pop.var.seeds = pvs, n = 10)
+#'
+
+pop.var.seeds <- pop.vars
+n = 10
+method = "random"
 gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F, name.out = "new"){
   ## check stage is a stage object
   if(!class(stage)=="stage"){
@@ -54,6 +59,11 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
 
   ## initialise list of seed populations (length = n)
   seed.pops <- as.list(matrix(nrow = n))
+  names(seed.pops) <- paste0("p", 1:n)
+
+  ## initalise list of species
+  pop.species <- as.list(matrix(paste0("p", 1:n), nrow = n))
+  names(pop.species) <- paste0("s", 1:n)
 
   ## for each entry in the vector: 1) add position of entry in vector to list of regions; 2) add list of population variables to seed population list.
   var.names <- pop.var.seeds[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]]
@@ -69,7 +79,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
     names(seed.pops[[z]]) <- var.names
   }
   ## combine in single output
-  t0 <- list("populated.regions" = occ.reg, "population.variables" = seed.pops)
+  t0 <- list("populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## export if set
   if(export){
     saveRDS(t0, file = paste0(t0, "_seed_pops.Rds"))
