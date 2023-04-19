@@ -38,7 +38,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
     stop("provided avg.disp.dist seeding method is not a function")
   }
   ## base function for seeding population disp.prop - always on
-  if(disp.prop == "default") seed.ADD <- seed.disp.prop
+  if(disp.prop == "default") seed.DP <- seed.disp.prop
   if(!disp.prop == "default" && is.function(disp.prop)){
     seed.DP <- disp.prop
   }
