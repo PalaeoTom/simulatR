@@ -23,7 +23,7 @@ model.abundance(a0, min.via.pop = F, MVP.value, t0, t1, SF = 1)
 a numeric value.
 }
 \description{
-Changes are drawn from normal distributions where the standard deviation is the product of the magnitude of the previous abundance, the time passed, and a factor (SF). If min.via.pop is TRUE
+Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF). If min.via.pop is TRUE
 and the abundance of the population is below MVP.value, then the mean of this normal distribution shifts by the difference.
 }
 \examples{

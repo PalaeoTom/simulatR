@@ -5,7 +5,7 @@
 \title{Set population variables}
 \usage{
 set.pop.var.seeds(
-  vagility = "default",
+  avg.disp.dist = "default",
   abundance = "default",
   gen.het = "default",
   min.via.pop = "default",
@@ -17,9 +17,9 @@ set.pop.var.seeds(
 )
 }
 \arguments{
-\item{vagility}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
+\item{avg.disp.dist}{Either "default" (the default), or a function which specifies how the initial value is derived for a population.}
 
-\item{abundance}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
+\item{abundance}{Either "default" (the default) or a function which specifies how the initial value is derived for a population.}
 
 \item{gen.het}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
@@ -40,10 +40,10 @@ A pop.var.seeds object.
 }
 \description{
 set.pop.var.seeds generates a pop.var.seeds object which specifies the population variables for a simulation and defines how their initial values will be derived. Core variables
-are abundance, genetic heterogeneity (gen.het), minimum viable population (min.via.pop), and vagility. By default, abundance and minimum viable population numbers are
-drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while vagility and gen.het values are derived from uniform distributions
-bounded between 0 and 1, with values of 0 being resampled. All four core variables are included in the output by default. However, they can be switched off or replaced with custom functions if desired.
-TThis function also allows for additional custom population variables to be added as input-less functions.
+are abundance, genetic heterogeneity (gen.het), minimum viable population (min.via.pop), and average dispersal distance (avg.disp.dist). By default, abundance and minimum viable population numbers are
+drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while the avg.disp.dist values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
+By default, the gen.het values are derived from uniform distributions bounded between 0 and 1. gen.het and avg.disp.dist values of 0 are resampled by default. All four core variables are included in the output by default.
+However, min.via.pop and gen.het can be switched off, and all four can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
 }
 \examples{
 # Generate pop.var.seeds object
@@ -52,4 +52,6 @@ pop.seeds <- set.pop.var.seeds
 }
 \references{
 Traill, L. W., Bradshaw, C. J. A., & Brook, B. W. (2007). Minimum viable population size: A meta-analysis of 30 years of published estimates. \emph{Biological Conservation}, 139, 156-166.
+
+Kinlan, B. P. & Gaines, S. D. (2003). Propagule dispersal in marine and terrestrial environments: a community perspective. \emph{Ecology}, 84, 2007-2020.
 }

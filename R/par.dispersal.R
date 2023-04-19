@@ -1,0 +1,34 @@
+par.dispersal <- function(stage, p0, carrying.capacity = F, t0, t1, SF = 1){
+  ## check for stage
+  if(!class(stage)=="stage"){
+    stop("stage is not a stage object")
+  }
+  ## check that abundance, min.via.pop, and avg.disp.dist are included in seed.pops
+  if(!any(names(p0[[2]][[1]]) == "abundance") | !any(names(p0[[2]][[1]]) == "avg.disp.dist")){
+    stop("p0 is missing one or more of the essential population variables: abundance and avg.disp.dist. Please ensure these variables are included and labelled as specified")
+  }
+  ## if carrying capacity is included
+  if(any(names(stage) == "carrying.capacity")){
+
+  } else {
+
+  }
+  ## get distances between regions
+  distances <- stage[[3]]
+  for (i in 1:length(p0)){
+    ## find occupied regions
+    loc <- which(sapply(p0[[1]], function(y) i %in% y))
+    ## if one region
+
+    # if more than one region
+
+  }
+  ## if min.via.pop
+
+  ## if one region source
+
+  ## if more than one source region
+
+
+
+}
