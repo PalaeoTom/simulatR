@@ -1,25 +1,3 @@
-stage <- stage.cc
-p0 <- seed.pops
-t0 <- times[1]
-t1 <- times[2]
-
-## Needs two variants - with and without min.via.pop.
-
-## Return updated p0[[1]]
-
-## Also needs with/without carrying capacity
-
-!any(names(p0[[2]][[1]]) == "abundance") | !any(names(p0[[2]][[1]]) == "min.via.pop") | !any(names(p0[[2]][[1]]) == "avg.disp.dist")
-
-if(!class(stage) == "stage")
-  ## abundance needed
-  ## average dispersal distance needed
-  ## dispersal propensity needed
-  ## min.via.pop optional
-  ## carrying capacity optional
-
-
-
 par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0, t1, SF = 1){
   ## check for stage
   if(!class(stage)=="stage"){
