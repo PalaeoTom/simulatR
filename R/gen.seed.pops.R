@@ -67,7 +67,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   variables[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]] <- NULL
   ## populate regions
   for(y in 1:length(rtbp)){
-    occ.reg[[rtbp[y]]] <- paste0("p",na.omit(c(occ.reg[[rtbp[y]]], y)))
+    occ.reg[[rtbp[y]]] <- na.omit(c(occ.reg[[rtbp[y]]], paste0("p", y)))
   }
   ## assign variable values for each seed population
   for(z in 1:n){
