@@ -19,7 +19,8 @@ if(!class(stage) == "stage")
   ## carrying capacity optional
 
 
-par.dispersal <- function(stage, p0, carrying.capacity = F, t0, t1, SF = 1){
+
+par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0, t1, SF = 1){
   ## check for stage
   if(!class(stage)=="stage"){
     stop("stage is not a stage object")
@@ -28,11 +29,21 @@ par.dispersal <- function(stage, p0, carrying.capacity = F, t0, t1, SF = 1){
   if(!any(names(p0[[2]][[1]]) == "abundance") | !any(names(p0[[2]][[1]]) == "disp.prop") |!any(names(p0[[2]][[1]]) == "avg.disp.dist")){
     stop("p0 is missing one or more of the essential population variables: abundance, disp.prop, and avg.disp.dist. Please ensure these variables are included and labelled as specified")
   }
+  ## get ID of all species in
   ## if carrying capacity is included
-  if(any(names(stage) == "carrying.capacity")){
+  if(CC){
+    ## if min.via.pop included
+    if(MVP){
 
+    } else {
+
+    }
   } else {
+    if(MVP){
 
+    } else {
+
+    }
   }
   ## get distances between regions
   distances <- stage[[3]]

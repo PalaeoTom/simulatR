@@ -27,10 +27,6 @@
 #' # Now generate seed populations
 #' seed.pops <- gen.seed.pops(stage = s, pop.var.seeds = pvs, n = 10)
 #'
-
-pop.var.seeds <- pop.vars
-n = 10
-method = "random"
 gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F, name.out = "new"){
   ## check stage is a stage object
   if(!class(stage)=="stage"){
