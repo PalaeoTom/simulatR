@@ -51,14 +51,14 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
     rtbp <- method(stage)
   }
   ## initialise list of regions (length = number of cells in stage regions object)
-  occ.reg <- as.list(matrix(nrow = length(stage[[1]])))
+  occ.reg <- vector("list", length(stage[[1]]))
 
   ## initialise list of seed populations (length = n)
-  seed.pops <- as.list(matrix(nrow = n))
+  seed.pops <- vector("list", n)
   names(seed.pops) <- paste0("p", 1:n)
 
   ## initalise list of species
-  pop.species <- as.list(matrix(paste0("p", 1:n), nrow = n))
+  pop.species <- as.list(paste0("p", 1:n))
   names(pop.species) <- paste0("s", 1:n)
 
   ## for each entry in the vector: 1) add position of entry in vector to list of regions; 2) add list of population variables to seed population list.
@@ -67,7 +67,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   variables[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]] <- NULL
   ## populate regions
   for(y in 1:length(rtbp)){
-    occ.reg[[rtbp[y]]] <- na.omit(c(occ.reg[[rtbp[y]]], paste0("p", y)))
+    occ.reg[[rtbp[y]]] <- c(occ.reg[[rtbp[y]]], paste0("p", y))
   }
   ## assign variable values for each seed population
   for(z in 1:n){
