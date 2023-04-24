@@ -38,7 +38,7 @@ par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0,
 
       names(p0[[3]][x])
 
-      location <- lapply(1:length(p0[[1]]), function(x) )
+      location <- lapply(1:length(p0[[1]]), function(x) test)
 
 
       (p0[[1]][[1]] == names(p0[[3]])[1])
