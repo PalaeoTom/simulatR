@@ -2,7 +2,7 @@
 #'
 #' Values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
 #'
-#' @param cutoff a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.
+#' @param cutoff a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.006 (minimum of datasets).
 #'
 #' @return a numeric value.
 #' @export
@@ -13,7 +13,7 @@
 #' @examples
 #' # Run the function
 #' seed.avg.disp.dist()
-seed.avg.disp.dist <- function(cutoff = 0){
+seed.avg.disp.dist <- function(cutoff = 0.006){
   while(T){
     D <- rgamma(1, shape = 0.325417052044176, rate = 0.0065853463868577)
     if(D > cutoff) break()

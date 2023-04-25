@@ -31,32 +31,27 @@ par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0,
         return(out)
       })
       names(n.props) <- names(p0[[3]])
+
+
       ## get probability of propagules ceasing journey at each distance for each species
-      ## find population
-      lapply()
-     p0[[1]][[x]]
-
-      names(p0[[3]][x])
-
-      location <- lapply(1:length(p0[[1]]), function(x) test)
-
-
-      (p0[[1]][[1]] == names(p0[[3]])[1])
-
-
-
+      ## find population location
+      loc <- which(sapply(p0[[1]], function(x) names(n.props)[1] %in% x))
+      ## get distances from source to all possible recipient locations
+      SR.dist <- sort(unique(stage[[3]][loc,][-which(stage[[3]][loc,] == 0)]))
+      ## convert to fraction of propagules expecting to cease journey at each distance
+      ## first, get Lambda from average dispersal distance
+      lambda <- log(0.51)/p0[[3]][[which(names(p0[[3]]) == names(n.props)[1])]][1]
     }
   }
   ## get distances between regions
-  distances <- stage[[3]]
-  for (i in 1:length(p0)){
+
     ## find occupied regions
-    loc <- which(sapply(p0[[1]], function(y) i %in% y))
+
     ## if one region
 
     # if more than one region
 
-  }
+
   ## if min.via.pop
 
   ## if one region source

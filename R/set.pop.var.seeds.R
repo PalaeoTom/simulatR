@@ -94,8 +94,8 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
         if(A >= MVP) break()
       }
       ## create out
-      out <- list(MVP, A)
-      names(out) <- c("min.via.pop", "abundance")
+      out <- list(A, MVP)
+      names(out) <- c("abundance", "min.via.pop")
       return(out)
     }
       ## configure final output if additional variables are provided
@@ -109,12 +109,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.GH, seed.MVP.abundance, new.var.seed)
-        names(output) <- c("avg.disp.dist", "disp.prop", "gen.het", "min.via.pop.abundance", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH, new.var.seed)
+        names(output) <- c("avg.disp.dist", "disp.prop", "min.via.pop.abundance", "gen.het", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.GH, seed.MVP.abundance)
-        names(output) <- c("avg.disp.dist", "disp.prop", "gen.het", "min.via.pop.abundance")
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH)
+        names(output) <- c("avg.disp.dist", "disp.prop",  "min.via.pop.abundance", "gen.het")
         output <- output[!is.na(output)]
       }
     } else {
@@ -129,12 +129,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.GH, seed.MVP, seed.A, new.var.seed)
-        names(output) <- c("avg.disp.dist", "disp.prop", "gen.het", "min.via.pop", "abundance", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP, new.var.seed)
+        names(output) <- c("avg.disp.dist", "disp.prop",  "abundance", "gen.het", "min.via.pop", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.GH, seed.MVP, seed.A)
-        names(output) <- c("avg.disp.dist", "disp.prop", "gen.het", "min.via.pop", "abundance")
+        output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP)
+        names(output) <- c("avg.disp.dist", "disp.prop", "abundance", "gen.het", "min.via.pop")
         output <- output[!is.na(output)]
       }
     }
@@ -143,7 +143,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
   ## split names of abundance and min.via.pop
   if(any(variables == "min.via.pop.abundance")){
     variables <- c(  variables[which(which(!variables == "min.via.pop.abundance") < which(variables == "min.via.pop.abundance"))],
-                     "min.via.pop", "abundance",
+                     "abundance", "min.via.pop",
                      variables[which(which(!variables == "min.via.pop.abundance") > which(variables == "min.via.pop.abundance"))])
   }
   ## add to end of output
