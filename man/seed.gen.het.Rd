@@ -19,4 +19,3 @@ Values are drawn from a uniform distribution bounded between 0 and 1. Only produ
 # Run the function
 seed.gen.het()
 }
-\keyword{internal}

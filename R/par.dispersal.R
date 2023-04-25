@@ -9,7 +9,8 @@ par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0,
   }
   ## initialise output
   p1 <- p0
-  ## get ID of all species in
+  ## get duration
+  dur <- t1-t0
   ## if carrying capacity is included
   if(CC){
     ## if min.via.pop included
@@ -40,18 +41,21 @@ par.dispersal <- function(stage, p0, CC = F, MVP = F, carrying.capacity = F, t0,
       ## get probability of propagules ceasing journey at each distance for each source population
       ## find population location
       loc <- which(sapply(p0[[1]], function(y) names(n.props)[x] %in% y))
-      ## get all distances from source
+      ## get distances to all possible recipient regions from source region
       SR.dist.all <- stage[[3]][loc,]
-      ## get distances from source to all possible recipient locations
+      ## get Lambda from average dispersal distance for years elapsed
+      lambda <- abs(log(0.50)/(p0[[3]][[which(names(p0[[3]]) == names(n.props)[x])]][1]*dur))
+      ## reduce to unique distances, drop source regions (distance = 0)
       SR.dist <- sort(unique(stage[[3]][loc,][-which(stage[[3]][loc,] == 0)]))
-      ## convert to fraction of propagules expecting to cease journey at each distance
-      ## first, get Lambda from average dispersal distance
-      lambda <- abs(log(0.51)/p0[[3]][[which(names(p0[[3]]) == names(n.props)[x])]][1])
-      ## Now multiply take exponent of each distance multiplied by this value.
+      ## Now multiply take exponent of each distance multiplied by this value to get fraction at each distance.
       frac.props <- exp(-lambda*SR.dist)
-      ## Remove impossible distances given ability of population
-      frac.props.pruned <- frac.props[-which(frac.props <= 0)]
-      SR.dist.pruned <- SR.dist[-which(frac.props <= 0)]
+      ## Remove theoretically impossible distances (fraction = 0)
+      if(any(frac.props == 0)){
+        frac.props <- frac.props[-which(frac.props == 0)]
+        SR.dist <- SR.dist[-which(frac.props <= 0)]
+      }
+      ## get fractions that cease within increments
+      frac.inc <- sapply(2:(length(frac.props)+1), function(z) c(1,frac.props)[z-1]-c(1,frac.props)[z])
 
 
       ## Convert to probabilities

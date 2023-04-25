@@ -2,7 +2,7 @@
 #'
 #' Values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
 #'
-#' @param cutoff a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.01 (10m/yr, minimum of marine datasets, rounded up).
+#' @param cutoff a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.005 (5m/yr, just below minimum of datasets, 0.06).
 #'
 #' @return a numeric value.
 #' @export
@@ -12,9 +12,9 @@
 #' @examples
 #' # Run the function
 #' seed.avg.disp.dist()
-seed.avg.disp.dist <- function(cutoff = 0.01){
+seed.avg.disp.dist <- function(cutoff = 0.005){
   while(T){
-    D <- rgamma(1, shape = 0.380272201114083, rate = 0.00639846233090385)
+    D <- rgamma(1, shape = 0.325417052044176, rate = 0.0065853463868577)
     if(D > cutoff) break()
   }
   return(D)

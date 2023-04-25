@@ -22,4 +22,3 @@ seed.min.via.pop()
 \references{
 Traill, L. W., Bradshaw, C. J. A., & Brook, B. W. (2007). Minimum viable population size: A meta-analysis of 30 years of published estimates. \emph{Biological Conservation}, 139, 156-166.
 }
-\keyword{internal}

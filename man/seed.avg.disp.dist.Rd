@@ -4,10 +4,10 @@
 \alias{seed.avg.disp.dist}
 \title{Default method of assigning starting avg.disp.dist values to populations}
 \usage{
-seed.avg.disp.dist(cutoff = 0.006)
+seed.avg.disp.dist(cutoff = 0.01)
 }
 \arguments{
-\item{cutoff}{a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.006 (minimum of datasets).}
+\item{cutoff}{a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.01 (10m/yr, minimum of marine datasets, rounded up).}
 }
 \value{
 a numeric value.
@@ -22,4 +22,3 @@ seed.avg.disp.dist()
 \references{
 Kinlan, B. P. & Gaines, S. D. (2003). Propagule dispersal in marine and terrestrial environments: a community perspective. \emph{Ecology}, 84, 2007-2020.
 }
-\keyword{internal}
