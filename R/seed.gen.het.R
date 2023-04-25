@@ -7,8 +7,6 @@
 #' @return a numeric value.
 #' @export
 #'
-#' @keywords internal
-#'
 #' @examples
 #' # Run the function
 #' seed.gen.het()
