@@ -43,7 +43,7 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
     }
   } else {
     ## read in
-    stage0 <- readRDS(paste0(stage, ".Rds"))
+    stage <- readRDS(paste0(stage, ".Rds"))
     # check stage
     if(!class(stage)=="stage"){
       stop("stage is not a stage object")
@@ -51,7 +51,7 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
   }
   ## generate new variable object
   if(is.function(var)){
-    new <- var(stage0)
+    new <- var(stage)
   } else {
     # check new variable is formatted as a matrix
     if(!is.matrix(var)){
@@ -64,9 +64,9 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
     new <- var
   }
   ## append new variable object to new version of stage object
-  stage1 <- stage0
-  stage1[[length(stage0)+1]] <- new
-  names(stage1)[length(stage0)+1] <- var.name
+  stage1 <- stage
+  stage1[[length(stage)+1]] <- new
+  names(stage1)[length(stage)+1] <- var.name
   ## export if set
   if(export){
     saveRDS(stage1, file = paste0(name.out, "_stage.Rds"))
