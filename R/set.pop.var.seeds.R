@@ -13,7 +13,7 @@
 #' @param gen.het Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param min.via.pop Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param stable.seeds If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.
-#' @param new.var.name If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables.
+#' @param new.var.name If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables. Strings should not contain punctuation.
 #' @param new.var.seed A function or list of functions specifying how the initial values for the new variables are derived for a population.
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
 #' @param export If TRUE, updated stage with new variable is exported as an Rds file to working directory.
@@ -95,7 +95,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
       }
       ## create out
       out <- list(A, MVP)
-      names(out) <- c("abundance", "min.via.pop")
+      names(out) <- c("abundance", "MVP")
       return(out)
     }
       ## configure final output if additional variables are provided
@@ -110,11 +110,11 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
         }
         # now checks are complete, create final output as list
         output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH, new.var.seed)
-        names(output) <- c("avg.disp.dist", "disp.prop", "min.via.pop.abundance", "gen.het", new.var.name)
+        names(output) <- c("ADD", "DP", "MVPA", "GH", new.var.name)
         output <- output[!is.na(output)]
       } else {
         output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH)
-        names(output) <- c("avg.disp.dist", "disp.prop",  "min.via.pop.abundance", "gen.het")
+        names(output) <- c("ADD", "DP",  "MVPA", "GH")
         output <- output[!is.na(output)]
       }
     } else {
@@ -130,21 +130,21 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
         }
         # now checks are complete, create final output as list
         output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP, new.var.seed)
-        names(output) <- c("avg.disp.dist", "disp.prop",  "abundance", "gen.het", "min.via.pop", new.var.name)
+        names(output) <- c("ADD", "DP",  "abundance", "GH", "MVP", new.var.name)
         output <- output[!is.na(output)]
       } else {
         output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP)
-        names(output) <- c("avg.disp.dist", "disp.prop", "abundance", "gen.het", "min.via.pop")
+        names(output) <- c("ADD", "DP", "abundance", "GH", "MVP")
         output <- output[!is.na(output)]
       }
     }
   ## add element with names
   variables <- names(output)
   ## split names of abundance and min.via.pop
-  if(any(variables == "min.via.pop.abundance")){
-    variables <- c(  variables[which(which(!variables == "min.via.pop.abundance") < which(variables == "min.via.pop.abundance"))],
-                     "abundance", "min.via.pop",
-                     variables[which(which(!variables == "min.via.pop.abundance") > which(variables == "min.via.pop.abundance"))])
+  if(any(variables == "MVPA")){
+    variables <- c(  variables[which(which(!variables == "MVPA") < which(variables == "MVPA"))],
+                     "abundance", "MVP",
+                     variables[which(which(!variables == "MVPA") > which(variables == "MVPA"))])
   }
   ## add to end of output
   final <- c(output, "variables" = list(variables))

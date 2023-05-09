@@ -5,7 +5,7 @@
 #'
 #' @param stage A stage object or the name of the stage Rds file as a string.
 #' @param var A function specifying how the variable should be calculated using existing stage elements OR a matrix of the same dimensions as the 'regions' stage element, specifying the variable value for each region.
-#' @param var.name A string specifying name of new variable. Default = "new.variable".
+#' @param var.name A string specifying name of new variable. No punctuation should be included in name. Default = "new.variable".
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
 #' @param export If TRUE, updated stage with new variable is exported as an Rds file to working directory.
 #'
