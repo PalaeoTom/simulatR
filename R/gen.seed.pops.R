@@ -71,7 +71,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   }
   ## assign variable values for each seed population
   for(z in 1:n){
-    seed.pops[[z]] <- unlist(sapply(1:length(variables), function(x) variables[[x]]()))
+    seed.pops[[z]] <- sapply(1:length(variables), function(x) variables[[x]]())
     names(seed.pops[[z]]) <- var.names
   }
   ## combine in single output
