@@ -4,10 +4,10 @@
 \alias{seed.avg.disp.dist}
 \title{Default method of assigning starting avg.disp.dist values to populations}
 \usage{
-seed.avg.disp.dist(cutoff = 0.01)
+seed.avg.disp.dist(cutoff = 0.005)
 }
 \arguments{
-\item{cutoff}{a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.01 (10m/yr, minimum of marine datasets, rounded up).}
+\item{cutoff}{a numeric value specifying the largest avg.disp.dist value that will be re-sampled. Default is 0.005 (5m/yr, just below minimum of datasets, 0.06).}
 }
 \value{
 a numeric value.

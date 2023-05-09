@@ -37,13 +37,17 @@
 add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new", export = F){
   ## if load is TRUE, read in stage from Rds object
   if(is.object(stage)){
-    ## check stage
-    stage0 <- check.stage(stage)
+    # check stage
+    if(!class(stage)=="stage"){
+      stop("stage is not a stage object")
+    }
   } else {
     ## read in
     stage0 <- readRDS(paste0(stage, ".Rds"))
-    ## check stage
-    stage0 <- check.stage(stage)
+    # check stage
+    if(!class(stage)=="stage"){
+      stop("stage is not a stage object")
+    }
   }
   ## generate new variable object
   if(is.function(var)){

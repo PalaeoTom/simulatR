@@ -22,7 +22,7 @@
 #' s <- check.stage(s)
 #'
 #' # Generate a generic pop.var.seeds object
-#' pvs <- set.pop.var.seeds
+#' pvs <- set.pop.var.seeds()
 #'
 #' # Now generate seed populations
 #' seed.pops <- gen.seed.pops(stage = s, pop.var.seeds = pvs, n = 10)
