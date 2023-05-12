@@ -30,7 +30,7 @@ set.pop.var.seeds(
 
 \item{stable.seeds}{If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.}
 
-\item{new.var.name}{If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables.}
+\item{new.var.name}{If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables. Strings should not contain punctuation.}
 
 \item{new.var.seed}{A function or list of functions specifying how the initial values for the new variables are derived for a population.}
 

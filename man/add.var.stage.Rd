@@ -17,7 +17,7 @@ add.var.stage(
 
 \item{var}{A function specifying how the variable should be calculated using existing stage elements OR a matrix of the same dimensions as the 'regions' stage element, specifying the variable value for each region.}
 
-\item{var.name}{A string specifying name of new variable. Default = "new.variable".}
+\item{var.name}{A string specifying name of new variable. No punctuation should be included in name. Default = "new.variable".}
 
 \item{name.out}{If export = TRUE, a string that specifies the name of the output file.}
 
