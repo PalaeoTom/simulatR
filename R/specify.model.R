@@ -34,7 +34,7 @@ specify.model <- function(type, variables, expression, name.out = "new", export 
                  "variables" = variables,
                  "expression" = expression)
   ## Assign model class
-  out <- structure(output, class = "model")
+  out <- structure(out, class = "model")
   ## export if set
   if(export){
     saveRDS(out, file = paste0(name.out, "_stage.Rds"))
