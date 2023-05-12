@@ -8,7 +8,7 @@
 #'
 #' @return a model object
 #' @export
-#'#'
+#'
 #' @examples
 #' # Run the function
 #' model <- specify.model(type = "binary", variables = NA, expression = "runif(1) > 0.5")
