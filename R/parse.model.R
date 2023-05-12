@@ -44,11 +44,11 @@ parse.model <- function(model, stage, p0, p, r){
 
   }
   ## Bounded models
-  if(type = "bounded"){
+  if(type == "bounded"){
 
   }
   ## Unbounded models
-  if(type = "unbounded"){
+  if(type == "unbounded"){
 
   }
 }
