@@ -74,8 +74,13 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
     seed.pops[[z]] <- sapply(1:length(variables), function(x) variables[[x]]())
     names(seed.pops[[z]]) <- var.names
   }
+  ## finally, summarise species and populations present
+  populations.present <- names(seed.pops)
+  species.present <- names(pop.species)
   ## combine in single output
-  t0 <- list("populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
+  t0 <- list("populations.present" = populations.present, "species.present" = species.present, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
+  ## Assign populations class
+  t0 <- structure(t0, class = "populations")
   ## export if set
   if(export){
     saveRDS(t0, file = paste0(t0, "_seed_pops.Rds"))
