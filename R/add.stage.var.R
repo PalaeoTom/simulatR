@@ -73,7 +73,8 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
     out$"variable.names" <- names(out$"stage.variables")
   } else {
     ## create stage variables object
-    out$"stage.variables" = list(paste0(var.name) = new)
+    out$"stage.variables" = list(new)
+    names(out$"stage.variables")[1] <- var.name
     out$"variable.names" <- names(out$"stage.variables")
   }
   ## export if set
