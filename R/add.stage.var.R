@@ -49,6 +49,8 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
       stop("stage is not a stage object")
     }
   }
+  ## create output object
+  out <- stage
   ## generate new variable object
   if(is.function(var)){
     new <- var(stage)

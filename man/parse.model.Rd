@@ -4,18 +4,18 @@
 \alias{parse.model}
 \title{Parse and evaluate a model}
 \usage{
-parse.model(model, stage, p0, p, r)
+parse.model(m, s, p0, p, r)
 }
 \arguments{
-\item{model}{A model object created with specify.model.}
-
-\item{stage}{A stage object created with make.stage or checked with check.stage.}
-
 \item{p0}{A populations object created with gen.seed.pops or simulate.}
 
 \item{p}{A string specifying the name of the population.}
 
 \item{r}{A numeric value specifying the region the process is occurring in/to.}
+
+\item{model}{A model object created with specify.model.}
+
+\item{stage}{A stage object created with make.stage or checked with check.stage.}
 }
 \value{
 A numeric value.
@@ -31,15 +31,15 @@ s <- make.stage(n.col = 5, n.row = 5, ar = 400)
 s <- add.var.stage(s, var = matrix(runif(25, min = 10, max = 50), 5, 5), var.name = "SV1")
 
 # define population variables
-PVs <- set.pop.var.seeds(min.via.pop = "off", gen.het = "off", var.name = "PV1", new.var.seed = function() runif(1,10,50))
+PVs <- set.pop.var.seeds(min.via.pop = "off", gen.het = "off", new.var.name = "PV1", new.var.seed = function() runif(1,10,50))
 
 # generate seed populations
-SPs <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
+p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 
 # define model
 m <- specify.model(type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
 
 parse and evaluate model - population and region chosen randomly
-parse.model(model = m, stage = s, p0 = SPs, p = sample(SPs$populations.present, 1), r = sample(s$regions, 1))
+parse.model(m = m, s = s, p0 = p0, p = sample(SPs$populations.present, 1), r = sample(s$regions, 1))
 }
 \keyword{internal}
