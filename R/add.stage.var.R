@@ -69,11 +69,11 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
   if(any(names(out) == "stage.variables")){
     ## Add to existing list
     out$"stage.variables"[[length(out$"stage.variables")+1]] <- new
-    names(out$"stage.variables")[length(out$"stage.variables")] <- paste0(var.name)
+    names(out$"stage.variables")[length(out$"stage.variables")] <- var.name
     out$"variable.names" <- names(out$"stage.variables")
   } else {
-    ## create population variables object
-    out$"stage.variables" = list(var.name = new)
+    ## create stage variables object
+    out$"stage.variables" = list(paste0(var.name) = new)
     out$"variable.names" <- names(out$"stage.variables")
   }
   ## export if set
