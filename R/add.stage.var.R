@@ -63,14 +63,21 @@ add.var.stage <- function(stage, var, var.name = "new.variable", name.out = "new
     }
     new <- var
   }
-  ## append new variable object to new version of stage object
-  stage1 <- stage
-  stage1[[length(stage)+1]] <- new
-  names(stage1)[length(stage)+1] <- var.name
+  ## Check if stage has 'stage.variables' element
+  if(any(names(out) == "stage.variables")){
+    ## Add to existing list
+    out$stage.variables[[length(out$"stage.variables")+1]] <- new
+    names(out$stage.variables)[length(out$stage.variables)] <- var.name
+    out$"variable.names" <- names(out$"stage.variables")
+  } else {
+    ## create population variables object
+    out$"stage.variables" = list(var.name = new)
+    out$"variable.names" <- names(out$"stage.variables")
+  }
   ## export if set
   if(export){
-    saveRDS(stage1, file = paste0(name.out, "_stage.Rds"))
+    saveRDS(out, file = paste0(name.out, "_stage.Rds"))
   } else {
-  return(stage1)
+  return(out)
   }
 }

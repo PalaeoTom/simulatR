@@ -78,7 +78,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   populations.present <- names(seed.pops)
   species.present <- names(pop.species)
   ## combine in single output
-  t0 <- list("populations.present" = populations.present, "species.present" = species.present, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
+  t0 <- list("populations.present" = populations.present, "species.present" = species.present, "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
   t0 <- structure(t0, class = "populations")
   ## export if set

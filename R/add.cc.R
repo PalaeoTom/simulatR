@@ -33,8 +33,6 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
     if(!class(stage)=="stage"){
       stop("stage is not a stage object")
     }
-    ## isolate dimensions
-    dimensions <- stage[[2]]
   } else {
     ## read in
     stage <- readRDS(paste0(stage, ".Rds"))
@@ -42,24 +40,31 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
     if(!class(stage)=="stage"){
       stop("stage is not a stage object")
     }
-    ## isolate dimensions
-    dimensions <- stage[[2]]
   }
   ## transform area into carrying capacity object using specified model. Default is power.
   if(model == "power"){
-    carrying.capacity <- SAR_power(dimensions, non0 = power.non0)
+    carrying.capacity <- SAR_power(stage$"dimensions", non0 = power.non0)
   } else {
-    carrying.capacity <- model(dimensions)
+    carrying.capacity <- model(stage$"dimensions")
   }
-  ## append carrying capacity element to new version of stage object
-  stage1 <- stage
-  stage1[[length(stage)+1]] <- carrying.capacity
-  names(stage1)[length(stage)+1] <- "CC"
+  ## create output object
+  out <- stage
+  ## Check if stage has 'stage.variables' element
+  if(any(names(out) == "stage.variables")){
+    ## Add to existing list
+    out$"stage.variables"[[length(out$"stage.variables")+1]] <- carrying.capacity
+    names(out$"stage.variables")[length(out$"stage.variables")] <- "CC"
+    out$"variable.names" <- names(out$"stage.variables")
+  } else {
+    ## create population variables object
+    out$"stage.variables" = list("CC" = carrying.capacity)
+    out$"variable.names" <- names(out$"stage.variables")
+  }
   ## export if set
   if(export){
-    saveRDS(stage1, file = paste0(name.out, "_stage.Rds"))
+    saveRDS(out, file = paste0(name.out, "_stage.Rds"))
   } else {
-  return(stage1)
+  return(out)
   }
 }
 
