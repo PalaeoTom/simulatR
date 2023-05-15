@@ -62,7 +62,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   names(pop.species) <- paste0("s", 1:n)
 
   ## for each entry in the vector: 1) add position of entry in vector to list of regions; 2) add list of population variables to seed population list.
-  var.names <- pop.var.seeds[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]]
+  var.names <- pop.var.seeds$"variable.names"
   variables <- pop.var.seeds
   variables[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]] <- NULL
   ## populate regions

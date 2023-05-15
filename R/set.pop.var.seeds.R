@@ -147,7 +147,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
                      variables[which(which(!variables == "MVPA") > which(variables == "MVPA"))])
   }
   ## add to end of output
-  final <- c(output, "variable.names" = variables)
+  final <- c(output, "variable.names" = c(variables))
   final <- structure(final, class = "pop.var.seeds")
   ## export if set
   if(export){
