@@ -52,6 +52,14 @@ check.stage <- function(input, name.out = "new", export = F){
   if(!length(input[[1]]) == ncol(input[[3]]) && length(input[[1]]) == nrow(input[[3]])){
     stop("some distances (input[[3]]) between regions (input[[1]]) are missing")
   }
+  ## if there is a "stage.variables" element but no "variable.names" element, break.
+  if(any(names(input) == "stage.variables") && !any(names(input) == "variable.names")){
+    stop("'stage.variables' element detected but no accompanying 'variable.names' element")
+  }
+  ## Vice versa
+  if(!any(names(input) == "stage.variables") && any(names(input) == "variable.names")){
+    stop("'variable.names' element detected but no accompanying 'stage.variables' element")
+  }
   # if everything checks out, say so
   message("Object is a stage")
   # assign status
