@@ -40,6 +40,6 @@ p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 m <- specify.model(type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
 
 parse and evaluate model - population and region chosen randomly
-parse.model(m = m, s = s, p0 = p0, p = sample(SPs$populations.present, 1), r = sample(s$regions, 1))
+parse.model(m = m, s = s, p0 = p0, p = sample(p0$populations.present, 1), r = sample(s$regions, 1))
 }
 \keyword{internal}

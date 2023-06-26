@@ -1,16 +1,16 @@
 #' Set population variables
 #'
 #' set.pop.var.seeds generates a pop.var.seeds object which specifies the population variables for a simulation and defines how their initial values will be derived. Core variables
-#' are abundance, average dispersal distance (avg.disp.dist), and dispersal propensity (disp.prop). These variables are integral to the core processes of the simulation (speciation, dispersal, extirpation) and so
-#' cannot be switched off. Genetic heterogeneity (gen.het) and minimum viable population (min.via.pop) are also included as optional variables. By default, abundance and minimum viable population numbers are
+#' are abundance, mean genome, average dispersal distance (avg.disp.dist), and dispersal propensity (disp.prop). These variables are integral to the core processes of the simulation (speciation, dispersal, extirpation) and so
+#' cannot be switched off. Minimum viable population (min.via.pop) is also included as an optional variable. By default, abundance and minimum viable population numbers are
 #' drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while the avg.disp.dist values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
-#' By default, the gen.het and disp.prop values are derived from uniform distributions bounded between 0 and 1, with gen.het and avg.disp.dist values of 0 resampled by default. All five variables are included in the output by default.
-#' However, min.via.pop and gen.het can be switched off, and all five variables can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
+#' By default, the mean genome and disp.prop values are derived from uniform distributions bounded between 0 and 1, with mean genome and avg.disp.dist values of 0 resampled by default. All five variables are included in the output by default.
+#' However, min.via.pop can be switched off, and all five variables can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
 #'
 #' @param abundance Either "default" (the default) or a function which specifies how the initial value is derived for a population.
 #' @param avg.disp.dist Either "default" (the default), or a function which specifies how the initial value is derived for a population.
 #' @param disp.prop Either "default" (the default), or a function which specifies how the initial value is derived for a population.
-#' @param gen.het Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
+#' @param genome Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param min.via.pop Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.
 #' @param stable.seeds If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.
 #' @param new.var.name If new.var.seed is a function or list of functions, a string, or list of strings, specifying the name(s) of the new population variables. Strings should not contain punctuation.
@@ -28,7 +28,7 @@
 #' # Generate pop.var.seeds object
 #' pop.seeds <- set.pop.var.seeds
 #'
-set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", abundance = "default", gen.het = "default", min.via.pop = "default", stable.seeds = F, new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
+set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", abundance = "default", genome = "default", min.via.pop = "default", stable.seeds = F, new.var.name = "new.variable", new.var.seed = NULL, name.out = "new", export = F){
   ## base function for seeding population avg.disp.dist - always on
   if(avg.disp.dist == "default") seed.ADD <- seed.avg.disp.dist
   if(!avg.disp.dist == "default" && is.function(avg.disp.dist)){
@@ -45,14 +45,13 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
   if(!disp.prop == "default" && !is.function(disp.prop)){
     stop("provided disp.prop seeding method is not a function")
   }
-  ## base function for seeding population gen.het - can be switched off
-  if(gen.het == "default") seed.GH <- seed.gen.het
-  if(gen.het == "off") seed.GH <- NA
-  if(!gen.het == "default" && !gen.het == "off" && is.function(gen.het)){
-    seed.GH <- gen.het
+  ## base function for seeding population mean genome - always on
+  if(genome == "default") seed.G <- seed.genome
+  if(!genome == "default" && is.function(genome)){
+    seed.G <- genome
   }
-  if(!gen.het == "default" && !gen.het == "off" && !is.function(gen.het)){
-    stop("provided gen.het seeding method is not a function")
+  if(!genome == "default" && !is.function(genome)){
+    stop("provided mean genome seeding method is not a function")
   }
   ## MVP either default or custom, abundance off - error message
   if(!min.via.pop == "off" && abundance == "off"){
@@ -109,12 +108,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH, new.var.seed)
-        names(output) <- c("ADD", "DP", "MVPA", "GH", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G, new.var.seed)
+        names(output) <- c("ADD", "DP", "MVPA", "G", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.GH)
-        names(output) <- c("ADD", "DP",  "MVPA", "GH")
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G)
+        names(output) <- c("ADD", "DP",  "MVPA", "G")
         output <- output[!is.na(output)]
       }
     } else {
@@ -129,12 +128,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP, new.var.seed)
-        names(output) <- c("ADD", "DP",  "abundance", "GH", "MVP", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.MVP, new.var.seed)
+        names(output) <- c("ADD", "DP",  "abundance", "G", "MVP", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.A, seed.GH, seed.MVP)
-        names(output) <- c("ADD", "DP", "abundance", "GH", "MVP")
+        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.MVP)
+        names(output) <- c("ADD", "DP", "abundance", "G", "MVP")
         output <- output[!is.na(output)]
       }
     }

@@ -7,7 +7,7 @@
 specify.model(type, variables, expression, name.out = "new", export = F)
 }
 \arguments{
-\item{type}{Either "binary", "bounded", or "unbounded".}
+\item{type}{Either "binary" or "continuous".}
 
 \item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
 
