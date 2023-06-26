@@ -8,7 +8,7 @@ set.pop.var.seeds(
   avg.disp.dist = "default",
   disp.prop = "default",
   abundance = "default",
-  gen.het = "default",
+  genome = "default",
   min.via.pop = "default",
   stable.seeds = F,
   new.var.name = "new.variable",
@@ -24,7 +24,7 @@ set.pop.var.seeds(
 
 \item{abundance}{Either "default" (the default) or a function which specifies how the initial value is derived for a population.}
 
-\item{gen.het}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
+\item{genome}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
 \item{min.via.pop}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
@@ -43,11 +43,11 @@ A pop.var.seeds object.
 }
 \description{
 set.pop.var.seeds generates a pop.var.seeds object which specifies the population variables for a simulation and defines how their initial values will be derived. Core variables
-are abundance, average dispersal distance (avg.disp.dist), and dispersal propensity (disp.prop). These variables are integral to the core processes of the simulation (speciation, dispersal, extirpation) and so
-cannot be switched off. Genetic heterogeneity (gen.het) and minimum viable population (min.via.pop) are also included as optional variables. By default, abundance and minimum viable population numbers are
+are abundance, mean genome, average dispersal distance (avg.disp.dist), and dispersal propensity (disp.prop). These variables are integral to the core processes of the simulation (speciation, dispersal, extirpation) and so
+cannot be switched off. Minimum viable population (min.via.pop) is also included as an optional variable. By default, abundance and minimum viable population numbers are
 drawn from a Weibull distribution fitted to the data of Traill et al., with values below 10 being resampled, while the avg.disp.dist values are drawn from a gamma distribution fitted to the data of Kinlan & Gaines (2003).
-By default, the gen.het and disp.prop values are derived from uniform distributions bounded between 0 and 1, with gen.het and avg.disp.dist values of 0 resampled by default. All five variables are included in the output by default.
-However, min.via.pop and gen.het can be switched off, and all five variables can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
+By default, the mean genome and disp.prop values are derived from uniform distributions bounded between 0 and 1, with mean genome and avg.disp.dist values of 0 resampled by default. All five variables are included in the output by default.
+However, min.via.pop can be switched off, and all five variables can be replaced with custom functions if desired. This function also allows for additional custom population variables to be added as input-less functions.
 }
 \examples{
 # Generate pop.var.seeds object

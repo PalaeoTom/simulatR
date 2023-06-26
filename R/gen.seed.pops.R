@@ -10,7 +10,7 @@
 #' @param export If TRUE, stage will be saved as an Rds file. Default is FALSE.
 #' @param name.out A string to be included in the Rds output file name if export = TRUE. Default is "new".
 #'
-#' @return A list with two elements.
+#' @return A populations object.
 #' @export
 #'
 #' @examples
@@ -77,8 +77,13 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   ## finally, summarise species and populations present
   populations.present <- names(seed.pops)
   species.present <- names(pop.species)
+  ## And add species and populations counters
+  pop.counter <- length(pop.species)
+  species.counter <- length(seed.pops)
   ## combine in single output
-  t0 <- list("populations.present" = populations.present, "species.present" = species.present, "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
+  t0 <- list("populations.IDs" = populations.present, "n.populations" = pop.counter,
+             "species.IDs" = species.present, "n.species" = species.counter,
+             "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
   t0 <- structure(t0, class = "populations")
   ## export if set
