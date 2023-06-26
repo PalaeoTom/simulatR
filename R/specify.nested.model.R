@@ -9,7 +9,6 @@
 #' @param p A populations object
 #' @param m Either a model object, or a list of model objects.
 #' @param type Either "binary" or "continuous".
-#' @param models A character vector containing the names of
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
 #' @param expression A character vector specifying the construction of the model as a single string. Model should be referred to as 'm' or, if multiple models are included, the model names or 'm1', 'm2', and so forth.
 #'
@@ -63,12 +62,12 @@ specify.nested.model <- function(s, p, m, type, variables, expression, name.out 
   }
   ## Check variables are present in either s or p when m is a model
   if(class(m)=="model"){
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "m"))))){
+    if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
       stop("one or more variables specified are not included in stage or populations objects provided")
     }
   } else {
     ## Check variables are present in either s or p when m is a list of model
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, names(m)))))){
+    if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
       stop("one or more variables specified are not included in stage, populations objects, or models provided")
     }
   }
