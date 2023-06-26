@@ -27,7 +27,7 @@ gen.seed.pops(
 \item{name.out}{A string to be included in the Rds output file name if export = TRUE. Default is "new".}
 }
 \value{
-A list with two elements.
+A populations object.
 }
 \description{
 gen.seed.pops generates n seed populations with variables defined by pop.var.seeds and assigns them to regions within the provided stage using method.

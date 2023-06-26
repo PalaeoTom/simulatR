@@ -10,7 +10,7 @@
 #' @examples
 #' # Run the function
 #' seed.gen.het()
-seed.gen.het <- function(cutoff = 0){
+seed.genome <- function(cutoff = 0){
   while(T){
     GH <- runif(1, 0, 1)
     if(GH > cutoff) break()

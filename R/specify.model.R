@@ -1,6 +1,6 @@
 #' Specify model
 #'
-#' Creates an object that specifies the details of a model.
+#' Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables)
 #'
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
@@ -31,8 +31,9 @@ specify.model <- function(type, variables, expression, name.out = "new", export 
   }
   ## Assemble into model structure
   out <- list("type" = type,
-                 "variables" = variables,
-                 "expression" = expression)
+              "level" = 1,
+              "variables" = variables,
+              "expression" = expression)
   ## Assign model class
   out <- structure(out, class = "model")
   ## export if set
