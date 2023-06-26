@@ -27,8 +27,6 @@ specify.nested.model(
 \item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
 
 \item{expression}{A character vector specifying the construction of the model as a single string. Model should be referred to as 'm' or, if multiple models are included, the model names or 'm1', 'm2', and so forth.}
-
-\item{models}{A character vector containing the names of}
 }
 \value{
 a model object
