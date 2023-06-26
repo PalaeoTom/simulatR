@@ -58,7 +58,7 @@ parse.model <- function(m, s, p0, p, r){
     ## Binary models
     if(m$"type" == "binary"){
       ## without variables
-      if(is.na(m$variables)){
+      if(all(is.na(m1$variables))){
         if(eval(parse(text = m$"expression"))){
           out <- 1
         } else {
@@ -100,7 +100,7 @@ parse.model <- function(m, s, p0, p, r){
     ## continuous models
     if(m$"type" == "continuous"){
       ## no variables
-      if(is.na(m$variables)){
+      if(all(is.na(m1$variables))){
         ## evaluate model and return value
         out <- eval(parse(text = m$expression))
       } else {

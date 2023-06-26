@@ -32,6 +32,9 @@
 #'
 #' # Next, create a level-2 binary model
 #' m2 <- specify.nested.model(s = s, p = p0, m = m1, type = "binary", variables = c("PV1", "m"), expression = "1 <= PV1/m")
+#'
+#' parse and evaluate model
+#' parse.model(m = m2, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
 parse.nested.model <- function(m, s, p0, p, r){
   ## check stage is a stage object
   if(!class(s)=="stage"){
@@ -51,14 +54,10 @@ parse.nested.model <- function(m, s, p0, p, r){
   }
   ## Binary models
   if(m$"type" == "binary"){
-    ## without variables
-    if(is.na(m$variables)){
-      if(eval(parse(text = m$"expression"))){
-        out <- 1
-      } else {
-        out <- 0
-      }
-    } else {
+    ## First, need to evaluate nested models
+
+
+
       ## match model variables to stage and population variables
       vars <- lapply(1:length(m$"variables"), function(x){
         ## variable in stage, not populations
@@ -89,15 +88,9 @@ parse.nested.model <- function(m, s, p0, p, r){
       } else {
         out <- 0
       }
-    }
   }
   ## continuous models
   if(m$"type" == "continuous"){
-    ## no variables
-    if(is.na(m$variables)){
-      ## evaluate model and return value
-      out <- eval(parse(text = m$expression))
-    } else {
       ## match model variables to stage and population variables
       vars <- lapply(1:length(m$"variables"), function(x){
         ## variable in stage, not populations
@@ -125,7 +118,6 @@ parse.nested.model <- function(m, s, p0, p, r){
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     }
-  }
   return(out)
 }
 
