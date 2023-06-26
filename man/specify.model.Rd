@@ -4,9 +4,13 @@
 \alias{specify.model}
 \title{Specify model}
 \usage{
-specify.model(type, variables, expression, name.out = "new", export = F)
+specify.model(s, p, type, variables, expression, name.out = "new", export = F)
 }
 \arguments{
+\item{s}{A stage object}
+
+\item{p}{A populations object}
+
 \item{type}{Either "binary" or "continuous".}
 
 \item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
