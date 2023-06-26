@@ -2,6 +2,8 @@
 #'
 #' Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables)
 #'
+#' @param s A stage object
+#' @param p A populations object
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
 #' @param expression A character vector specifying the construction of the model as a single string.
@@ -12,7 +14,7 @@
 #' @examples
 #' # Run the function
 #' model <- specify.model(type = "binary", variables = NA, expression = "runif(1) > 0.5")
-specify.model <- function(type, variables, expression, name.out = "new", export = F){
+specify.model <- function(s, p, type, variables, expression, name.out = "new", export = F){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
     stop("argument 'type' is not 'binary' or 'continuous'")
@@ -28,6 +30,18 @@ specify.model <- function(type, variables, expression, name.out = "new", export 
   ## Check expression is only one string
   if(length(expression)>1){
     stop("argument 'expression' is not a single string")
+  }
+  ## Check s is a stage
+  if(!class(s)=="stage"){
+    stop("s is not a stage object")
+  }
+  ## check p is a populations object
+  if(!class(p)=="populations"){
+    stop("p is not a populations object")
+  }
+  ## Check variables are present in either s or p
+  if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
+    stop("one or more variables specified are not included in stage or populations objects provided")
   }
   ## Assemble into model structure
   out <- list("type" = type,

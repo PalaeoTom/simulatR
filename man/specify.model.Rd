@@ -17,7 +17,7 @@ specify.model(type, variables, expression, name.out = "new", export = F)
 a model object
 }
 \description{
-Creates an object that specifies the details of a model.
+Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables)
 }
 \examples{
 # Run the function
