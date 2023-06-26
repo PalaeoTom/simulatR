@@ -81,7 +81,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   pop.counter <- length(pop.species)
   species.counter <- length(seed.pops)
   ## combine in single output
-  t0 <- list("populations.IDs" = populations.present, "n.populations" = pop.counter,
+  t0 <- list("population.IDs" = populations.present, "n.populations" = pop.counter,
              "species.IDs" = species.present, "n.species" = species.counter,
              "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
