@@ -43,7 +43,7 @@ add.cc <- function(stage, model = "power", power.non0 = F, name.out = "new", exp
   }
   ## transform area into carrying capacity object using specified model. Default is power.
   if(model == "power"){
-    carrying.capacity <- SAR_power(stage$"dimensions", non0 = power.non0)
+    carrying.capacity <- SAR.power(stage$"dimensions", non0 = power.non0)
   } else {
     carrying.capacity <- model(stage$"dimensions")
   }
