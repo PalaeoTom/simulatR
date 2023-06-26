@@ -9,8 +9,8 @@
 #' @param p A populations object
 #' @param m Either a model object, or a list of model objects.
 #' @param type Either "binary" or "continuous".
-#' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
-#' @param expression A character vector specifying the construction of the model as a single string. Model should be referred to as 'm' or, if multiple models are included, the model names or 'm1', 'm2', and so forth.
+#' @param variables A character vector containing the names of the population variables, stage variables, and models included in the model, or NA (where there are no variables involved).
+#' @param expression A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).
 #'
 #' @return a model object
 #' @export

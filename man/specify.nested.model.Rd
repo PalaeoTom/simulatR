@@ -24,9 +24,9 @@ specify.nested.model(
 
 \item{type}{Either "binary" or "continuous".}
 
-\item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
+\item{variables}{A character vector containing the names of the population variables, stage variables, and models included in the model, or NA (where there are no variables involved).}
 
-\item{expression}{A character vector specifying the construction of the model as a single string. Model should be referred to as 'm' or, if multiple models are included, the model names or 'm1', 'm2', and so forth.}
+\item{expression}{A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).}
 }
 \value{
 a model object
