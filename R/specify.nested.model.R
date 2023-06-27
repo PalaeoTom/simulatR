@@ -92,12 +92,35 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   } else {
     level <- max(sapply(1:length(m), function(x) m[[x]]$level))+1
   }
+  ## Concatenate all model IDs into single vector
+  # Single nested model
+  if(class(m) == "model"){
+    # If level 1
+    if(m$level == 1){
+      nested.m <- m$ID
+    } else {
+      # if level 2 or higher
+      nested.m <- c(m$ID,m$nested.m)
+    }
+  } else {
+    nested.m <- c()
+    for(i in 1:length(m)){
+      # If level 1
+      if(m[[i]]$level == 1){
+        nested.m <- c(nested.m,m$ID)
+      } else {
+        # if level 2 or higher
+        nested.m <- c(nested.m,m$ID,m$nested.m)
+      }
+    }
+  }
   ## Assemble into model structure
   out <- list(
     "ID" = paste0(ID,".",level),
     "type" = type,
     "level" = level,
     "variables" = variables,
+    "nested.models" = nested.m,
     "models" = m,
     "expression" = expression)
   ## Assign model class

@@ -42,7 +42,7 @@
 #' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3*m4", ID = "m5")
 #'
 #' parse and evaluate model
-#' parse.nested.model(m = m3, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
+#' parse.nested.model(m = m5, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
 parse.nested.model <- function(m, s, p0, p, r){
   ## check stage is a stage object
   if(!class(s)=="stage"){
@@ -106,6 +106,13 @@ parse.nested.model <- function(m, s, p0, p, r){
   if(m$"type" == "continuous"){
     ## no variables
     if(all(is.na(m$variables))){
+      ## unpack all models
+
+      tryCatch(parse.nested.model(m = m, s = s, p0 = p0, p = p, r = r))
+
+      get("m3.2", m5$models))
+
+
 
 
 
