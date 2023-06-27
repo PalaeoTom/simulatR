@@ -97,10 +97,10 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   if(class(m) == "model"){
     # If level 1
     if(m$level == 1){
-      nested.m <- m$ID
+      nested.m <- c(m$ID)
     } else {
       # if level 2 or higher
-      nested.m <- c(m$ID,m$nested.m)
+      nested.m <- c(m$ID,m$nested.models)
     }
   } else {
     nested.m <- c()
@@ -110,10 +110,40 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
         nested.m <- c(nested.m,m[[i]]$ID)
       } else {
         # if level 2 or higher
-        nested.m <- c(nested.m,m[[i]]$ID,m[[i]]$nested.m)
+        nested.m <- c(nested.m,m[[i]]$ID,m[[i]]$nested.models)
       }
     }
   }
+  ## re-order
+  nested.m <- nested.m[order(nested.m)]
+  ## Finally, if above level-2, level-2 model's models object should be combined with that of level-3 so they're all in one place
+  if(level>2){
+    ## if 1 nested level-2 model
+    if(class(m) == "model"){
+      models.out <- m$models
+      m$models <- NULL
+      ## combine with updated m for final models.out
+      models.out <- c(m, models.out)
+      ## update names
+      names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
+    } else {
+      ## find the level 2 models
+      l2.m <- which(sapply(1:length(m), function(x) m[[x]]$level) == 2)
+      ## generate models.out object
+      models.out <- c()
+      ##
+      for(i in l2.m){
+        models.out <- c(models.out, m[[i]]$models)
+        m[[i]]$models <- NULL
+      }
+      ## combine with updated m for final models.out
+      models.out <- c(m, models.out)
+      ## update names
+      names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
+    }
+  }
+  ## re-order
+  models.out <- models.out[order(names(models.out))]
   ## Assemble into model structure
   out <- list(
     "ID" = paste0(ID,".",level),
@@ -121,7 +151,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
     "level" = level,
     "variables" = variables,
     "nested.models" = nested.m,
-    "models" = m,
+    "models" = models.out,
     "expression" = expression)
   ## Assign model class
   out <- structure(out, class = "model")
