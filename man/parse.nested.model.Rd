@@ -42,5 +42,8 @@ m1 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV
 
 # Next, create a level-2 binary model
 m2 <- specify.nested.model(s = s, p = p0, m = m1, type = "binary", variables = c("PV1", "m"), expression = "1 <= PV1/m")
+
+parse and evaluate model
+parse.model(m = m2, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
 }
 \keyword{internal}

@@ -7,14 +7,27 @@
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
 #' @param expression A character vector specifying the construction of the model as a single string.
+#' @param ID A character string assigning a unique ID to the model. Default is "new.model'.
 #'
 #' @return a model object
 #' @export
 #'
 #' @examples
-#' # Run the function
-#' model <- specify.model(type = "binary", variables = NA, expression = "runif(1) > 0.5")
-specify.model <- function(s, p, type, variables, expression, name.out = "new", export = F){
+#' # make stage
+#' s <- make.stage(n.col = 5, n.row = 5, ar = 400)
+#'
+#' add a random variable to stage
+#' s <- add.var.stage(s, var = matrix(runif(25, min = 10, max = 50), 5, 5), var.name = "SV1")
+#'
+#' # define population variables
+#' PVs <- set.pop.var.seeds(min.via.pop = "off", new.var.name = "PV1", new.var.seed = function() runif(1,10,50))
+#'
+#' # generate seed populations
+#' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
+#'
+#' # define model
+#' m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+specify.model <- function(s, p, type, variables, expression, ID = "new.model"){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
     stop("argument 'type' is not 'binary' or 'continuous'")
@@ -44,16 +57,12 @@ specify.model <- function(s, p, type, variables, expression, name.out = "new", e
     stop("one or more variables specified are not included in stage or populations objects provided")
   }
   ## Assemble into model structure
-  out <- list("type" = type,
-              "level" = 1,
-              "variables" = variables,
-              "expression" = expression)
+  out <- list(
+    "ID" = ID,
+    "type" = type,
+    "level" = 1,
+    "variables" = variables,
+    "expression" = expression)
   ## Assign model class
   out <- structure(out, class = "model")
-  ## export if set
-  if(export){
-    saveRDS(out, file = paste0(name.out, "_stage.Rds"))
-  } else {
-    return(out)
-  }
 }
