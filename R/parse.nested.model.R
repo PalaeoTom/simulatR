@@ -39,7 +39,7 @@
 #' m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")
 #'
 #' # Create a level-3 continuous model
-#' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "binary", variables = NA, expression = "1 <= PV1/(m1.1*m2.1)", ID = "m5")
+#' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "binary", variables = NA, expression = "m3*m4", ID = "m5")
 #'
 #' parse and evaluate model
 #' parse.nested.model(m = m3, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
