@@ -26,7 +26,7 @@
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
 #' # define model
-#' m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+#' m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m")
 specify.model <- function(s, p, type, variables, expression, ID = "new.model"){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
@@ -58,7 +58,7 @@ specify.model <- function(s, p, type, variables, expression, ID = "new.model"){
   }
   ## Assemble into model structure
   out <- list(
-    "ID" = ID,
+    "ID" = paste0(ID,".1"),
     "type" = type,
     "level" = 1,
     "variables" = variables,

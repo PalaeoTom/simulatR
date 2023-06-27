@@ -4,7 +4,7 @@
 \alias{specify.model}
 \title{Specify model}
 \usage{
-specify.model(s, p, type, variables, expression, name.out = "new", export = F)
+specify.model(s, p, type, variables, expression, ID = "new.model")
 }
 \arguments{
 \item{s}{A stage object}
@@ -16,6 +16,8 @@ specify.model(s, p, type, variables, expression, name.out = "new", export = F)
 \item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
 
 \item{expression}{A character vector specifying the construction of the model as a single string.}
+
+\item{ID}{A character string assigning a unique ID to the model. Default is "new.model'.}
 }
 \value{
 a model object
@@ -24,6 +26,18 @@ a model object
 Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables)
 }
 \examples{
-# Run the function
-model <- specify.model(type = "binary", variables = NA, expression = "runif(1) > 0.5")
+# make stage
+s <- make.stage(n.col = 5, n.row = 5, ar = 400)
+
+add a random variable to stage
+s <- add.var.stage(s, var = matrix(runif(25, min = 10, max = 50), 5, 5), var.name = "SV1")
+
+# define population variables
+PVs <- set.pop.var.seeds(min.via.pop = "off", new.var.name = "PV1", new.var.seed = function() runif(1,10,50))
+
+# generate seed populations
+p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
+
+# define model
+m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
 }
