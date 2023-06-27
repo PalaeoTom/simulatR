@@ -108,14 +108,6 @@ parse.nested.model <- function(m, s, p0, p, r){
     if(all(is.na(m$variables))){
       ## unpack all models
 
-      tryCatch(parse.nested.model(m = m, s = s, p0 = p0, p = p, r = r))
-
-      get("m3.2", m5$models))
-
-
-
-
-
 
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
