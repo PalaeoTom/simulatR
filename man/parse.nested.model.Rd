@@ -13,7 +13,7 @@ parse.nested.model(m, s, p0, p, r)
 
 \item{r}{A numeric value specifying the region the process is occurring in/to.}
 
-\item{model}{A nested model object created with specify.nested.model.}
+\item{model}{A level-2 or greater model created with specify.nested.model.}
 
 \item{stage}{A stage object created with make.stage or checked with check.stage.}
 }
@@ -44,6 +44,9 @@ m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"),
 
 # Next, create a level-2 binary model
 m3 <- specify.nested.model(s = s, p = p0, m = list(m1,m2), type = "binary", variables = c("PV1"), expression = "1 <= PV1/(m1.1*m2.1)", ID = "m3")
+
+# Try parsing
+parse.nested.model(m = m3, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
 
 # Create another level-1 model
 m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")

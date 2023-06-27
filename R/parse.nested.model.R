@@ -73,7 +73,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
         }
       }
       if(eval(parse(text = m$"expression"))){
@@ -112,7 +112,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
         }
       }
       ## evaluate model and return 1 if true, 0 if false
@@ -133,7 +133,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
         }
       }
       ## evaluate model and return value
@@ -169,7 +169,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
         }
       }
       ## evaluate model and return value
