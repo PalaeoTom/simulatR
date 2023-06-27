@@ -39,5 +39,5 @@ PVs <- set.pop.var.seeds(min.via.pop = "off", new.var.name = "PV1", new.var.seed
 p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 
 # define model
-m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m")
 }

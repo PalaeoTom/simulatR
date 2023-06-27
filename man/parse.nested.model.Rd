@@ -38,10 +38,10 @@ p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 
 # First example: evaluating a binary level-2 model
 # First, create level-1 continuous model
-m1 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "abs(PV1 - SV1)")
+m1 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "abs(PV1 - SV1)", ID = "m1")
 
 # Next, create a level-2 binary model
-m2 <- specify.nested.model(s = s, p = p0, m = m1, type = "binary", variables = c("PV1", "m"), expression = "1 <= PV1/m")
+m2 <- specify.nested.model(s = s, p = p0, m = m1, type = "binary", variables = c("PV1", "m"), expression = "1 <= PV1/m", ID = "m2")
 
 parse and evaluate model
 parse.model(m = m2, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))

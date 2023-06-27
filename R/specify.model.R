@@ -7,7 +7,7 @@
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
 #' @param expression A character vector specifying the construction of the model as a single string.
-#' @param ID A character string assigning a unique ID to the model. Default is "new.model'.
+#' @param ID  A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").
 #'
 #' @return a model object
 #' @export

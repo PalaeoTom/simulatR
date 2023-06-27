@@ -9,9 +9,9 @@
 #' @param p A populations object
 #' @param m Either a model object, or a list of model objects.
 #' @param type Either "binary" or "continuous".
-#' @param variables A character vector containing the names of the population variables, stage variables, and models included in the model, or NA (where there are no variables involved).
+#' @param variables A character vector containing the names of the population variables, stage variables, or NA (where there are no variables involved).
 #' @param expression A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).
-#' @param ID A character string assigning a unique ID to the model. Default is "new.model'.
+#' @param ID A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").
 #'
 #' @return a model object
 #' @export
@@ -30,16 +30,16 @@
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
 #' # define model
-#' m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+#' m1 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m1")
 #'
 #' # define second model
-#' m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+#' m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m2")
 #'
 #' # get list
-#' m.list <- list(m, m2)
+#' m.list <- list(m1, m2)
 #'
 #' # build nested model
-#' m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1", "m1", "m2"), expression = "PV1*m1 <= SV1*m2")
+#' m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1"), expression = "PV1*m1.1 <= SV1*m2.1", ID = "m3")
 specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new.model"){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
@@ -82,17 +82,10 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       names(m) <- paste0("m", seq(1,length(m),1))
     }
   }
-  ## Check variables are present in either s or p when m is a model
-  if(class(m)=="model"){
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "m"))))){
+  ## Check variables are present in either s or p
+    if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
       stop("one or more variables specified are not included in stage or populations objects provided")
     }
-  } else {
-    ## Check variables are present in either s or p when m is a list of model
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, names(m)))))){
-      stop("one or more variables specified are not included in stage, populations objects, or models provided")
-    }
-  }
   ## Get model level
   if(class(m) == "model"){
     level <- m$level+1
@@ -101,7 +94,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   }
   ## Assemble into model structure
   out <- list(
-    "ID" = ID,
+    "ID" = paste0(ID,".",level),
     "type" = type,
     "level" = level,
     "variables" = variables,
@@ -109,10 +102,4 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
     "expression" = expression)
   ## Assign model class
   out <- structure(out, class = "model")
-  ## export if set
-  if(export){
-    saveRDS(out, file = paste0(name.out, "_stage.Rds"))
-  } else {
-    return(out)
-  }
 }

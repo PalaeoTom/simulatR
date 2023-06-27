@@ -44,14 +44,14 @@ PVs <- set.pop.var.seeds(min.via.pop = "off", new.var.name = "PV1", new.var.seed
 p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 
 # define model
-m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+m1 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m1")
 
 # define second model
-m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1")
+m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m2")
 
 # get list
-m.list <- list(m, m2)
+m.list <- list(m1, m2)
 
 # build nested model
-m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1", "m1", "m2"), expression = "PV1*m1 <= SV1*m2")
+m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1", "m1", "m2"), expression = "PV1*m1 <= SV1*m2", ID = "m3")
 }
