@@ -15,11 +15,11 @@ specify.nested.model(s, p, m, type, variables, expression, ID = "new.model")
 
 \item{type}{Either "binary" or "continuous".}
 
-\item{variables}{A character vector containing the names of the population variables, stage variables, and models included in the model, or NA (where there are no variables involved).}
+\item{variables}{A character vector containing the names of the population variables, stage variables, or NA (where there are no variables involved).}
 
 \item{expression}{A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).}
 
-\item{ID}{A character string assigning a unique ID to the model. Default is "new.model'.}
+\item{ID}{A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").}
 }
 \value{
 a model object
@@ -53,5 +53,5 @@ m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"),
 m.list <- list(m1, m2)
 
 # build nested model
-m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1", "m1", "m2"), expression = "PV1*m1 <= SV1*m2", ID = "m3")
+m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1"), expression = "PV1*m1.1 <= SV1*m2.1", ID = "m3")
 }

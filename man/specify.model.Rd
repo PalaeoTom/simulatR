@@ -17,7 +17,7 @@ specify.model(s, p, type, variables, expression, ID = "new.model")
 
 \item{expression}{A character vector specifying the construction of the model as a single string.}
 
-\item{ID}{A character string assigning a unique ID to the model. Default is "new.model'.}
+\item{ID}{A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").}
 }
 \value{
 a model object
