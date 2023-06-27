@@ -141,6 +141,12 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       ## update names
       names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
     }
+  } else {
+    if(class(m) == "model"){
+      models.out <- list(m)
+    } else {
+      models.out <- m
+    }
   }
   ## re-order
   models.out <- models.out[order(names(models.out))]

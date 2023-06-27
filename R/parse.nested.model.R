@@ -107,8 +107,9 @@ parse.nested.model <- function(m, s, p0, p, r){
     ## no variables
     if(all(is.na(m$variables))){
       ## unpack all models
-
-
+      models <- lapply(1:length(m$nested.models), function(y){
+        out <- sapply(m, "[", m$nested.models[y])
+      })
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     } else {
