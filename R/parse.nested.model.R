@@ -2,7 +2,7 @@
 #'
 #' Works on models of all levels.
 #'
-#' @param model A nested model object created with specify.nested.model.
+#' @param model A level-2 or greater model created with specify.nested.model.
 #' @param stage A stage object created with make.stage or checked with check.stage.
 #' @param p0 A populations object created with gen.seed.pops or simulate.
 #' @param p A string specifying the name of the population.
@@ -34,6 +34,9 @@
 #'
 #' # Next, create a level-2 binary model
 #' m3 <- specify.nested.model(s = s, p = p0, m = list(m1,m2), type = "binary", variables = c("PV1"), expression = "1 <= PV1/(m1.1*m2.1)", ID = "m3")
+#'
+#' # Try parsing
+#' parse.nested.model(m = m3, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
 #'
 #' # Create another level-1 model
 #' m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")
@@ -69,7 +72,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       ## convert models into values, start with lv1 models
       for(i in levels){
         ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models)){
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
           assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
         }
       }
@@ -108,7 +111,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       ## convert models into values, start with lv1 models
       for(i in levels){
         ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models)){
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
           assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
         }
       }
@@ -129,7 +132,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       ## convert models into values, start with lv1 models
       for(i in levels){
         ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models)){
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
           assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
         }
       }
@@ -165,7 +168,7 @@ parse.nested.model <- function(m, s, p0, p, r){
       ## convert models into values, start with lv1 models
       for(i in levels){
         ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models)){
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
           assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
         }
       }
