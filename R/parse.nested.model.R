@@ -39,7 +39,7 @@
 #' m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")
 #'
 #' # Create a level-3 continuous model
-#' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3*m4", ID = "m5")
+#' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3.2*m4.1", ID = "m5")
 #'
 #' parse and evaluate model
 #' parse.nested.model(m = m5, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
@@ -64,6 +64,15 @@ parse.nested.model <- function(m, s, p0, p, r){
   if(m$"type" == "binary"){
     ## without variables
     if(all(is.na(m$variables))){
+      ## get levels
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+        }
+      }
       if(eval(parse(text = m$"expression"))){
         out <- 1
       } else {
@@ -94,6 +103,15 @@ parse.nested.model <- function(m, s, p0, p, r){
       })
       ## convert isolate variables into objects
       for(i in 1:length(vars)) assign(m$"variables"[i], vars[[i]])
+      ## get levels
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+        }
+      }
       ## evaluate model and return 1 if true, 0 if false
       if(eval(parse(text = m$"expression"))){
         out <- 1
@@ -115,12 +133,6 @@ parse.nested.model <- function(m, s, p0, p, r){
           assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
         }
       }
-
-      ## assign models
-      for(i in 1:length(m$models)) assign(m$"nested.models"[i], m$models[[i]])
-      ##
-
-
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     } else {
@@ -148,6 +160,15 @@ parse.nested.model <- function(m, s, p0, p, r){
       })
       ## convert isolate variables into objects
       for(i in 1:length(vars)) assign(m$"variables"[i], vars[[i]])
+      ## get levels of model
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+        }
+      }
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     }
