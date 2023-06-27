@@ -106,10 +106,21 @@ parse.nested.model <- function(m, s, p0, p, r){
   if(m$"type" == "continuous"){
     ## no variables
     if(all(is.na(m$variables))){
-      ## unpack all models
-      models <- lapply(1:length(m$nested.models), function(y){
-        out <- sapply(m, "[", m$nested.models[y])
-      })
+      ## get levels
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r))
+        }
+      }
+
+      ## assign models
+      for(i in 1:length(m$models)) assign(m$"nested.models"[i], m$models[[i]])
+      ##
+
+
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     } else {

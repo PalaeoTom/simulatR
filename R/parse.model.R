@@ -51,10 +51,6 @@ parse.model <- function(m, s, p0, p, r){
   if(!class(p0)=="populations"){
     stop("p0 is not a populations object")
   }
-  ## If model is of a higher level than 1, break
-  if(m$level > 1){
-    stop("m is a level-2 or higher model. Please parse with parse.nested.model")
-  }
     ## Binary models
     if(m$"type" == "binary"){
       ## without variables
