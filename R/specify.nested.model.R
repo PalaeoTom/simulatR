@@ -77,10 +77,8 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
         stop("one or more elements of list m are not model objects")
       }
     }
-    ## if it is a list of models, check models are named or assign names
-    if(is.null(names(m))){
-      names(m) <- paste0("m", seq(1,length(m),1))
-    }
+    ## if it is a list of models, assign IDs as names
+    names(m) <- sapply(1:length(m), function(x) m[[x]]$ID)
   }
   ## Check variables are present in either s or p
   if(!is.na(variables)){
