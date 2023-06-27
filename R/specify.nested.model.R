@@ -107,10 +107,10 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
     for(i in 1:length(m)){
       # If level 1
       if(m[[i]]$level == 1){
-        nested.m <- c(nested.m,m$ID)
+        nested.m <- c(nested.m,m[[i]]$ID)
       } else {
         # if level 2 or higher
-        nested.m <- c(nested.m,m$ID,m$nested.m)
+        nested.m <- c(nested.m,m[[i]]$ID,m[[i]]$nested.m)
       }
     }
   }
