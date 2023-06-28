@@ -4,7 +4,17 @@
 \alias{model.abundance}
 \title{Default abundance model}
 \usage{
-model.abundance(a0, min.via.pop = F, MVP.value, t0, t1, SF = 1)
+model.abundance(
+  a0,
+  min.via.pop = F,
+  MVP.value,
+  pop.gen = F,
+  g.diff,
+  pg.threshold = 0.1,
+  t0,
+  t1,
+  SF = 1
+)
 }
 \arguments{
 \item{a0}{a numeric value specifying abundance in previous time bin.}
@@ -12,6 +22,12 @@ model.abundance(a0, min.via.pop = F, MVP.value, t0, t1, SF = 1)
 \item{min.via.pop}{if TRUE, populations with a0 below MVP.value will have a greater likelihood of declining (the further below MVP.value, the greater the likelihood). Default is FALSE.}
 
 \item{MVP.value}{the minimum viable population number used if min.via.pop = TRUE.}
+
+\item{pop.gen}{if TRUE, populations with g.diff > pg.threshold will tend to decrease.}
+
+\item{g.diff}{A numeric value. Should be change in population across previous time interval.}
+
+\item{pg.threshold}{A numeric value specifying the threshold above which change in the mean genome is considered detrimental to the survival of the population. Default is 0.1.}
 
 \item{t0}{time of previous time bin.}
 
@@ -25,9 +41,5 @@ a numeric value.
 \description{
 Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF). If min.via.pop is TRUE
 and the abundance of the population is below MVP.value, then the mean of this normal distribution shifts by the difference.
-}
-\examples{
-# Run the function
-model.abundance(a0 = 20, t0 = 1, t1 = 2)
 }
 \keyword{internal}
