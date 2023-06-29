@@ -85,6 +85,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   ## combine in single output
   t0 <- list("population.IDs" = populations.present,
              "species.IDs" = species.present,
+             "distances" = stage$distances,
              "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
   t0 <- structure(t0, class = "populations")
