@@ -1,7 +1,6 @@
 #' Default abundance model
 #'
-#' Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF). If min.via.pop is TRUE
-#' and the abundance of the population is below MVP.value, then the mean of this normal distribution shifts by the difference.
+#' Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF). Capable of inducing changes based on population genetics and minimum viable population values.
 #'
 #' @param p0 populations object from previous time bin.
 #' @param p.ID string identifying population in question.
@@ -24,30 +23,36 @@ model.abundance <- function(p0, p.ID, t.series, t0, SF = 1){
   scale.F <- (t1-t0)*SF
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
-    if(g.diff > pg.threshold){
+    ## get rate
+    PGR0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "PGR")]
+    ## get threshold
+    PGT0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "PGT")]
+    if(PGR0 > PGT0){
       ## If min.via.pop provided, determine whether abundance is
-      if(min.via.pop){
-        ## if a0 => MVP.value
-        if(a0 >= MVP.value){
-          a1 <- a0 + round(rnorm(1, mean = a0*(g.diff-pg.threshold), sd = scale.F), digits = 0)
+      if(any(p0$variable.names == "MVP")){
+        ## get MVP
+        MVP0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "MVP")]
+        ## if a0 => MVP0
+        if(a0 >= MVP0){
+          a1 <- a0 + round(rnorm(1, mean = a0*(PGR0-PGT0), sd = scale.F), digits = 0)
         } else {
-          a1 <- a0 + round(rnorm(1, mean = a0-(MVP.value+(a0*(g.diff-pg.threshold))), sd = scale.F), digits = 0)
+          a1 <- a0 + round(rnorm(1, mean = a0-(MVP0+(a0*(PGR0-PGT0))), sd = scale.F), digits = 0)
         }
         ## return a1
         return(a1)
       } else {
-        a1 <- a0 + round(rnorm(1, mean = a0*(g.diff-pg.threshold), sd = scale.F), digits = 0)
+        a1 <- a0 + round(rnorm(1, mean = a0*(PGR0-PGT0), sd = scale.F), digits = 0)
         ## return a1
         return(a1)
       }
     } else {
       ## If min.via.pop provided, determine whether abundance is
-      if(min.via.pop){
-        ## if a0 => MVP.value
-        if(a0 >= MVP.value){
+      if(any(p0$variable.names == "MVP")){
+        ## if a0 => MVP0
+        if(a0 >= MVP0){
           a1 <- a0 + round(rnorm(1, mean = 0, sd = scale.F), digits = 0)
         } else {
-          a1 <- a0 + round(rnorm(1, mean = a0-MVP.value, sd = scale.F), digits = 0)
+          a1 <- a0 + round(rnorm(1, mean = a0-MVP0, sd = scale.F), digits = 0)
         }
         ## return a1
         return(a1)
@@ -59,12 +64,12 @@ model.abundance <- function(p0, p.ID, t.series, t0, SF = 1){
     }
   } else {
     ## If min.via.pop provided, determine whether abundance is
-    if(min.via.pop){
-      ## if a0 => MVP.value
-      if(a0 >= MVP.value){
+    if(any(p0$variable.names == "MVP")){
+      ## if a0 => MVP0
+      if(a0 >= MVP0){
         a1 <- a0 + round(rnorm(1, mean = 0, sd = scale.F), digits = 0)
       } else {
-        a1 <- a0 + round(rnorm(1, mean = a0-MVP.value, sd = scale.F), digits = 0)
+        a1 <- a0 + round(rnorm(1, mean = a0-MVP0, sd = scale.F), digits = 0)
       }
       ## return a1
       return(a1)
@@ -73,7 +78,6 @@ model.abundance <- function(p0, p.ID, t.series, t0, SF = 1){
       ## return a1
       return(a1)
     }
-
   }
 }
 

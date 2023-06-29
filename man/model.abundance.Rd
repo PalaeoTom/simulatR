@@ -4,36 +4,18 @@
 \alias{model.abundance}
 \title{Default abundance model}
 \usage{
-model.abundance(
-  a0,
-  min.via.pop = F,
-  MVP.value,
-  pop.gen = F,
-  g.diff,
-  pg.threshold = 0.1,
-  t0,
-  t1,
-  SF = 1
-)
+model.abundance(p0, p.ID, t.series, t0, SF = 1)
 }
 \arguments{
-\item{a0}{a numeric value specifying abundance in previous time bin.}
+\item{p0}{populations object from previous time bin.}
 
-\item{min.via.pop}{if TRUE, populations with a0 below MVP.value will have a greater likelihood of declining (the further below MVP.value, the greater the likelihood). Default is FALSE.}
+\item{p.ID}{string identifying population in question.}
 
-\item{MVP.value}{the minimum viable population number used if min.via.pop = TRUE.}
-
-\item{pop.gen}{if TRUE, populations with g.diff > pg.threshold will tend to decrease.}
-
-\item{g.diff}{A numeric value. Should be change in population across previous time interval.}
-
-\item{pg.threshold}{A numeric value specifying the threshold above which change in the mean genome is considered detrimental to the survival of the population. Default is 0.1.}
+\item{t.series}{a numeric vector specifying time bins.}
 
 \item{t0}{time of previous time bin.}
 
-\item{t1}{time of current time bin.}
-
-\item{SF}{a numeric value by which the changes in abundance can be scaled.}
+\item{SF}{a numeric value by which the changes in abundance can be scaled. For flexibility.}
 }
 \value{
 a numeric value.
