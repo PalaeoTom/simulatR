@@ -10,6 +10,7 @@ set.pop.var.seeds(
   abundance = "default",
   genome = "default",
   min.via.pop = "default",
+  pop.gen.threshold = "default",
   stable.seeds = F,
   new.var.name = "new.variable",
   new.var.seed = NULL,
@@ -26,7 +27,9 @@ set.pop.var.seeds(
 
 \item{genome}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
 
-\item{min.via.pop}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population.}
+\item{min.via.pop}{Either "default" (the default), "off", or a function which specifies how the initial value is derived for a population. If shared.pop.gen = TRUE, can also be a numeric value.}
+
+\item{pop.gen.threshold}{Either "default" (the default), "off", or a function which specifies how the threshold for excessive genomic change in an interval.}
 
 \item{stable.seeds}{If TRUE, all seed abundance values will be greater than the minimum viable population numbers. Default is FALSE.}
 
@@ -51,8 +54,7 @@ However, min.via.pop can be switched off, and all five variables can be replaced
 }
 \examples{
 # Generate pop.var.seeds object
-pop.seeds <- set.pop.var.seeds
-
+pop.seeds <- set.pop.var.seeds()
 }
 \references{
 Traill, L. W., Bradshaw, C. J. A., & Brook, B. W. (2007). Minimum viable population size: A meta-analysis of 30 years of published estimates. \emph{Biological Conservation}, 139, 156-166.

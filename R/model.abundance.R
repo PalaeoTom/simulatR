@@ -19,6 +19,8 @@
 #' @keywords internal
 #'
 model.abundance <- function(a0, min.via.pop = F, MVP.value, pop.gen = F, g.diff, pg.threshold = 0.1, t0, t1, SF = 1){
+  ## get a0
+  a0 <- p0$population.variables
   ## scale SD by time elapsed and factor
   scale.F <- (t1-t0)*SF
   ## if pop.gen switched on
