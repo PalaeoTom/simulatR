@@ -9,10 +9,10 @@
 #'
 #' @examples
 #' # Run the function
-#' seed.pop.gen()
+#' seed.pop.gen.threshold()
 seed.pop.gen.threshold <- function(minimum = 0.1){
   while(T){
-    PGT <- round(runif(1, min = 0, max = 1), digits = 0)
+    PGT <- runif(1, min = 0, max = 1)
     if(PGT >= minimum) break()
   }
   return(PGT)

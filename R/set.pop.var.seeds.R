@@ -53,7 +53,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
   if(!genome == "default" && !is.function(genome)){
     stop("provided mean genome seeding method is not a function")
   }
-  ## base function for seeding population pop.gen.threshold - always on
+  ## base function for seeding population pop.gen.threshold - can be turned off
   if(pop.gen.threshold == "default") seed.PGT <- seed.pop.gen.threshold
   if(is.function(pop.gen.threshold)){
     seed.PGT <- pop.gen.threshold

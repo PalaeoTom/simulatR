@@ -12,8 +12,8 @@
 #' seed.gen.het()
 seed.genome <- function(cutoff = 0){
   while(T){
-    GH <- runif(1, 0, 1)
-    if(GH > cutoff) break()
+    G <- runif(1, 0, 1)
+    if(G > cutoff) break()
   }
-  return(GH)
+  return(G)
 }
