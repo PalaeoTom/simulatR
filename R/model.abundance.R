@@ -15,23 +15,21 @@
 model.abundance <- function(p0, p.ID, t.series, t0, SF = 1){
   ## get new time
   t1 <- t.series[which(t.series == t0)+1]
-  ## identify population in question
-  p.ind <- which(names(p0$population.variables) == p.ID)
   ## get abundance at previous time step
-  a0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "abundance")]
+  a0 <- p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "abundance")]
   ## scale SD by time elapsed and factor
   scale.F <- abs((t1-t0)*SF)
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
     ## get rate
-    PGR0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "PGR")]
+    PGR0 <- p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "PGR")]
     ## get threshold
-    PGT0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "PGT")]
+    PGT0 <- p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "PGT")]
     if(PGR0 > PGT0){
       ## If min.via.pop provided, determine whether abundance is
       if(any(p0$variable.names == "MVP")){
         ## get MVP
-        MVP0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "MVP")]
+        MVP0 <- p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "MVP")]
         ## if a0 => MVP0
         if(a0 >= MVP0){
           a1 <- a0 + round(rnorm(1, mean = a0*(PGR0-PGT0), sd = scale.F), digits = 0)
