@@ -77,12 +77,9 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   ## finally, summarise species and populations present
   populations.present <- names(seed.pops)
   species.present <- names(pop.species)
-  ## And add species and populations counters
-  pop.counter <- length(pop.species)
-  species.counter <- length(seed.pops)
   ## combine in single output
-  t0 <- list("population.IDs" = populations.present, "n.populations" = pop.counter,
-             "species.IDs" = species.present, "n.species" = species.counter,
+  t0 <- list("population.IDs" = populations.present,
+             "species.IDs" = species.present,
              "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
   t0 <- structure(t0, class = "populations")
