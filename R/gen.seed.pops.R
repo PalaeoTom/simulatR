@@ -54,11 +54,9 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
 
   ## initialise list of seed populations (length = n)
   seed.pops <- vector("list", n)
-  names(seed.pops) <- paste0("p", 1:n)
 
   ## initalise list of species
-  pop.species <- as.list(paste0("p", 1:n))
-  names(pop.species) <- paste0("s", 1:n)
+  pop.species <- as.list(1:n)
 
   ## for each entry in the vector: 1) add position of entry in vector to list of regions; 2) add list of population variables to seed population list.
   var.names <- pop.var.seeds$variable.names
@@ -66,7 +64,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   variables$variable.names <- NULL
   ## populate regions
   for(y in 1:length(rtbp)){
-    occ.reg[[rtbp[y]]] <- c(occ.reg[[rtbp[y]]], paste0("p", y))
+    occ.reg[[rtbp[y]]] <- c(occ.reg[[rtbp[y]]], y)
   }
   ## assign variable values for each seed population
   for(z in 1:n){
@@ -79,14 +77,9 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
     })
     names(seed.pops[[z]]) <- var.names
   }
-  ## finally, summarise species and populations present
-  populations.present <- names(seed.pops)
-  species.present <- names(pop.species)
   ## combine in single output
-  t0 <- list("population.IDs" = populations.present,
-             "species.IDs" = species.present,
-             "distances" = stage$distances,
-             "variable.names" = var.names, "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
+  t0 <- list("distances" = stage$distances,"variable.names" = var.names,
+             "populated.regions" = occ.reg, "species.representation" = pop.species, "population.variables" = seed.pops)
   ## Assign populations class
   t0 <- structure(t0, class = "populations")
   ## export if set
