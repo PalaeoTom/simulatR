@@ -35,14 +35,13 @@ If method = "random", regions are randomly selected with replacement for populat
 }
 \examples{
 # create a mock stage object
-s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3),
-"distances" = matrix(20, 9, 9))
+s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3), "distances" = matrix(20, 9, 9))
 
 # check object and assign "stage" class if it conforms.
 s <- check.stage(s)
 
 # Generate a generic pop.var.seeds object
-pvs <- set.pop.var.seeds()
+pvs <- set.pop.var.seeds(pop.gen.threshold = 0.1)
 
 # Now generate seed populations
 seed.pops <- gen.seed.pops(stage = s, pop.var.seeds = pvs, n = 10)

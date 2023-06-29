@@ -54,12 +54,22 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
     stop("provided mean genome seeding method is not a function")
   }
   ## base function for seeding population pop.gen.threshold - can be turned off
-  if(pop.gen.threshold == "default") seed.PGT <- seed.pop.gen.threshold
+  if(pop.gen.threshold == "default"){
+    seed.PGT <- seed.pop.gen.threshold
+    seed.PGR <- 0
+  }
   if(is.function(pop.gen.threshold)){
     seed.PGT <- pop.gen.threshold
+    seed.PGR <- 0
   }
-  if(pop.gen.threshold == "off") seed.PGT <- NA
-  if(is.numeric(pop.gen.threshold)) seed.PGT <- pop.gen.threshold
+  if(pop.gen.threshold == "off"){
+    seed.PGT <- NA
+    seed.PGR <- NA
+  }
+  if(is.numeric(pop.gen.threshold)){
+    seed.PGT <- pop.gen.threshold
+    seed.PGR <- 0
+  }
   if(!pop.gen.threshold == "default" && !is.function(pop.gen.threshold) && !is.numeric(pop.gen.threshold) && !pop.gen.threshold == "off"){
     stop("provided pop.gen.threshold seeding method is not a function, numeric value or 'off'")
   }
@@ -118,12 +128,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G, seed.PGT, new.var.seed)
-        names(output) <- c("ADD", "DP", "MVPA", "G", "PGT", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G, seed.PGT, seed.PGR, new.var.seed)
+        names(output) <- c("ADD", "DP", "MVPA", "G", "PGT", "PGT", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G, seed.PGT)
-        names(output) <- c("ADD", "DP",  "MVPA", "G", "PGT")
+        output <- c(seed.ADD, seed.DP, seed.MVP.abundance, seed.G, seed.PGT, seed.PGR)
+        names(output) <- c("ADD", "DP",  "MVPA", "G", "PGT", "PGR")
         output <- output[!is.na(output)]
       }
     } else {
@@ -138,12 +148,12 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
           stop("one of the elements of new.var.seed is not a function")
         }
         # now checks are complete, create final output as list
-        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.MVP, new.var.seed)
-        names(output) <- c("ADD", "DP",  "abundance", "G", "PGT", "MVP", new.var.name)
+        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP, new.var.seed)
+        names(output) <- c("ADD", "DP",  "abundance", "G", "PGT", "PGR", "MVP", new.var.name)
         output <- output[!is.na(output)]
       } else {
-        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.MVP)
-        names(output) <- c("ADD", "DP", "abundance", "G", "PGT", "MVP")
+        output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP)
+        names(output) <- c("ADD", "DP", "abundance", "G", "PGT", "PGR", "MVP")
         output <- output[!is.na(output)]
       }
     }
