@@ -17,5 +17,5 @@ Values are drawn from a uniform distribution.
 }
 \examples{
 # Run the function
-seed.pop.gen()
+seed.pop.gen.threshold()
 }

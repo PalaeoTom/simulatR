@@ -15,14 +15,13 @@
 #'
 #' @examples
 #' # create a mock stage object
-#' s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3),
-#' "distances" = matrix(20, 9, 9))
+#' s <- list("regions" = matrix(seq(1,9,1), 3, 3), "dimensions" = matrix(400, 3, 3), "distances" = matrix(20, 9, 9))
 #'
 #' # check object and assign "stage" class if it conforms.
 #' s <- check.stage(s)
 #'
 #' # Generate a generic pop.var.seeds object
-#' pvs <- set.pop.var.seeds()
+#' pvs <- set.pop.var.seeds(pop.gen.threshold = 0.1)
 #'
 #' # Now generate seed populations
 #' seed.pops <- gen.seed.pops(stage = s, pop.var.seeds = pvs, n = 10)
@@ -62,16 +61,22 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   names(pop.species) <- paste0("s", 1:n)
 
   ## for each entry in the vector: 1) add position of entry in vector to list of regions; 2) add list of population variables to seed population list.
-  var.names <- pop.var.seeds$"variable.names"
+  var.names <- pop.var.seeds$variable.names
   variables <- pop.var.seeds
-  variables[[which(sapply(1:length(pop.var.seeds), function(x) !is.function(pop.var.seeds[[x]])))]] <- NULL
+  variables$variable.names <- NULL
   ## populate regions
   for(y in 1:length(rtbp)){
     occ.reg[[rtbp[y]]] <- c(occ.reg[[rtbp[y]]], paste0("p", y))
   }
   ## assign variable values for each seed population
   for(z in 1:n){
-    seed.pops[[z]] <- sapply(1:length(variables), function(x) variables[[x]]())
+    seed.pops[[z]] <- sapply(1:length(variables), function(x){
+      if(is.function(variables[[x]])){
+        variables[[x]]()
+        } else {
+        variables[[x]]
+        }
+    })
     names(seed.pops[[z]]) <- var.names
   }
   ## finally, summarise species and populations present
