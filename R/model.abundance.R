@@ -20,7 +20,7 @@ model.abundance <- function(p0, p.ID, t.series, t0, SF = 1){
   ## get abundance at previous time step
   a0 <- p0$population.variables[[p.ind]][which(names(p0$population.variables[[p.ind]]) == "abundance")]
   ## scale SD by time elapsed and factor
-  scale.F <- (t1-t0)*SF
+  scale.F <- abs((t1-t0)*SF)
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
     ## get rate
