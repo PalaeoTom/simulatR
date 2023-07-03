@@ -4,7 +4,7 @@
 \alias{model.genome}
 \title{Default genome model}
 \usage{
-model.genome(p0, p.ID, t.series, t0, SF = 1)
+model.genome(p0, p.ID, t.series, t0, SF = 0.01, SF.pg = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}
@@ -15,7 +15,9 @@ model.genome(p0, p.ID, t.series, t0, SF = 1)
 
 \item{t0}{time of previous time bin.}
 
-\item{SF}{a numeric value by which the changes in mean genome can be scaled. For flexibility.}
+\item{SF}{a numeric value by which the changes in mean genome can be scaled when population genetics are not approximated. For flexibility.}
+
+\item{SF.pg}{a numeric value by which the changes in mean genome can be scaled when population genetic dynamics are approximated. For flexibility.}
 }
 \value{
 a numeric value.
