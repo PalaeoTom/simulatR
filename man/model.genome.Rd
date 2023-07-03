@@ -4,7 +4,7 @@
 \alias{model.genome}
 \title{Default genome model}
 \usage{
-model.genome(p0, p.ID, t.series, t0, SF = 0.01, SF.pg = 1)
+model.genome(p0, p.ID, t.series, t0, SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}
@@ -15,9 +15,7 @@ model.genome(p0, p.ID, t.series, t0, SF = 0.01, SF.pg = 1)
 
 \item{t0}{time of previous time bin.}
 
-\item{SF}{a numeric value by which the changes in mean genome can be scaled when population genetics are not approximated. For flexibility.}
-
-\item{SF.pg}{a numeric value by which the changes in mean genome can be scaled when population genetic dynamics are approximated. For flexibility.}
+\item{SF}{a numeric value by which the changes in mean genome can be scaled. For flexibility.}
 }
 \value{
 a numeric value.
@@ -26,4 +24,51 @@ a numeric value.
 Changes are drawn from normal distributions where the standard deviation is the product of the time passed, and a factor (SF).
 Capable of inducing changes based on principles of population genetics and abundance.
 }
+\keyword{"PV1",}
+\keyword{#}
+\keyword{0.1,}
+\keyword{1),}
+\keyword{10)}
+\keyword{100)}
+\keyword{400)}
+\keyword{5,}
+\keyword{<-}
+\keyword{=}
+\keyword{Create}
+\keyword{PVs}
+\keyword{PVs,}
+\keyword{a}
+\keyword{ar}
+\keyword{c(100,90,80,70,60,50,40,30,20,10)}
+\keyword{define}
+\keyword{function()}
+\keyword{gen.seed.pops(stage}
+\keyword{generate}
 \keyword{internal}
+\keyword{make}
+\keyword{make.stage(n.col}
+\keyword{model.genome(p0}
+\keyword{n}
+\keyword{n.row}
+\keyword{new.var.name}
+\keyword{new.var.seed}
+\keyword{p.ID}
+\keyword{p0}
+\keyword{p0,}
+\keyword{pop.var.seeds}
+\keyword{population}
+\keyword{populations}
+\keyword{runif(1,10,50))}
+\keyword{s}
+\keyword{s,}
+\keyword{sample(1:length(p0$population.variables),}
+\keyword{seed}
+\keyword{set.pop.var.seeds(pop.gen.threshold}
+\keyword{specifying}
+\keyword{stage}
+\keyword{t.series}
+\keyword{t.series,}
+\keyword{t0}
+\keyword{times}
+\keyword{variables}
+\keyword{vector}

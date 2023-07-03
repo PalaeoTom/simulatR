@@ -41,12 +41,12 @@ p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 m1 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m1")
 
 parse and evaluate model - population and region chosen randomly
-parse.model(m = m1, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
+parse.model(m = m1, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 
 # Second example: evaluating a continuous level-1 model
 m2 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "abs(PV1 - SV1)", ID = "m2")
 
 parse and evaluate model
-parse.model(m = m2, s = s, p0 = p0, p = sample(p0$population.IDs, 1), r = sample(s$regions, 1))
+parse.model(m = m2, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 }
 \keyword{internal}
