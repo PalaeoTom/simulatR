@@ -32,7 +32,7 @@
 #' # run function
 #' p1 <- apply.models(s = s, p0 = p0, pop.var.models = PVm, t0 = 100, t1 = 90)
 apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "new"){
-  ## check s is a s object
+  ## check s is a stage object
   if(!class(s)=="stage"){
     stop("s is not a stage object")
   }

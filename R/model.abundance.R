@@ -24,7 +24,7 @@
 #' model.abundance(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
 model.abundance <- function(p0, p, t0, t1, SF = 1){
   ## get abundance at previous time step
-  a0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "abundance")])
+  a0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")])
   ## scale SD by time elapsed and factor
   scale.F <- abs((t1-t0)*SF)
   ## if pop.gen switched on
