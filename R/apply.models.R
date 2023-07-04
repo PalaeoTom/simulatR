@@ -48,8 +48,8 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
     if(!i %in% p0$variable.names){
       stop(paste0(i, " is not included in p0"))
     }
-    ## If fixed, leave
-    if(pop.var.models[[i]] == "fixed"){
+    ## If not a function or a model, leave
+    if(!class(pop.var.models[[i]]) == "model" && !is.function(pop.var.models[[i]])){
       for(j in unlist(p0$populated.regions)){
         ## update using parse.model
         p1$population.variables[[j]][i] <- p1$population.variables[[j]][i]

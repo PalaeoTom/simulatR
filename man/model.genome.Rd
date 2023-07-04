@@ -37,9 +37,11 @@ Capable of inducing changes based on principles of population genetics and abund
 \keyword{=}
 \keyword{PVs}
 \keyword{PVs,}
+\keyword{Run}
 \keyword{a}
 \keyword{ar}
 \keyword{define}
+\keyword{function}
 \keyword{function()}
 \keyword{gen.seed.pops(stage}
 \keyword{generate}
