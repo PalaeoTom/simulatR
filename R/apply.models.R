@@ -43,12 +43,42 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
   ## initialise new populations object
   p1 <- p0
   ## for each model included in pop.var.models
-  for(i in 1:length(pop.var.models)){
-
-
+  for(i in pop.var.models$variable.names){
+    ## Break if not present
+    if(!i %in% p0$variable.names){
+      stop(paste0(i, " is not included in p0"))
+    }
+    ## If fixed, leave
+    if(pop.var.models[[i]] == "fixed"){
+      break()
+    }
+    ## If a model, implement across all populations
+    if(class(pop.var.models[[i]]) == "model"){
+      ## if level 1, use parse.model
+      if(pop.var.models[[i]]$level == 1){
+        for(j in unlist(p0$populated.regions)){
+          ## find r
+          r <- which(sapply(1:length(p0$populated.regions), function(x) any(p0$populated.regions[[x]] == j)))
+          ## update using parse.model
+          p1$population.variables[[j]][i] <- parse.model(m = pop.var.models[[i]], s = s, p0 = p0, p = j, r = r)
+        }
+      } else {
+        for(j in unlist(p0$populated.regions)){
+          ## find r
+          r <- which(sapply(1:length(p0$populated.regions), function(x) any(p0$populated.regions[[x]] == j)))
+          ## update using parse.model
+          p1$population.variables[[j]][i] <- parse.nested.model(m = pop.var.models[[i]], s = s, p0 = p0, p = j, r = r)
+        }
+      }
+    }
+    ## If a function, implement across all populations
+    if(!class(pop.var.models[[i]] == "model") && is.function(pop.var.models[[i]])){
+      for(j in unlist(p0$populated.regions)){
+        ## update using parse.model
+        p1$population.variables[[j]][i] <- pop.var.models[[i]](p0 = p0, p = j, t0 = t0, t1 = t1, SF = 1)
+      }
+    }
   }
-  ## Assign populations class
-  p1 <- structure(p1, class = "populations")
   ## export if set
   if(export){
     saveRDS(p1, file = paste0(name.out, "_", t1, "_pops.Rds"))
