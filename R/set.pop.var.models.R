@@ -24,7 +24,7 @@
 #'
 #' # Generate pop.var.models object
 #' pop.models <- set.pop.var.models(pop.var.seeds = pop.seeds)
-set.pop.var.seeds <- function(pop.var.seeds, abundance = "default", genome = "default", avg.disp.dist = "fixed", disp.prop = "fixed", min.via.pop = "fixed", pop.gen.threshold = "fixed", new.var.model = NULL, name.out = "new", export = F){
+set.pop.var.models <- function(pop.var.seeds, abundance = "default", genome = "default", avg.disp.dist = "fixed", disp.prop = "fixed", min.via.pop = "fixed", pop.gen.threshold = "fixed", new.var.model = NULL, name.out = "new", export = F){
   ## base function for assigning abundance model
   if(abundance == "default") model.A <- model.abundance
   if(class(abundance) == "model" | abundance == "fixed") model.A <- abundance
