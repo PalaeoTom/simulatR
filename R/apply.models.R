@@ -50,7 +50,7 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
     }
     ## If fixed, leave
     if(pop.var.models[[i]] == "fixed"){
-      break()
+      next()
     }
     ## If a model, implement across all populations
     if(class(pop.var.models[[i]]) == "model"){
