@@ -33,7 +33,7 @@ inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = NULL, SF = 1){
     ## get value between min and max
     while(TRUE){
       ## sample new value - normal distribution with mean MVP0 and SD determine by time elapsed, SF, and number of times abundance goes into minimum viable population number
-      MVP1 <- rnorm(1, mean = MVP0, sd = abs(t1-t0)*SF*(A0/MVP0))
+      MVP1 <- round(rnorm(1, mean = MVP0, sd = abs(t1-t0)*SF*(A0/MVP0)), digits = 0)
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(MVP1 >= min && MVP1 <= max) break()
@@ -51,7 +51,7 @@ inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = NULL, SF = 1){
     ## get value between min and max
     while(TRUE){
       ## sample new value - normal distribution with mean MVP0 and SD determine by time elapsed and SF alone.
-      MVP1 <- rnorm(1, mean = MVP0, sd = abs(t1-t0)*SF)
+      MVP1 <- round(rnorm(1, mean = MVP0, sd = abs(t1-t0)*SF), digits = 0)
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(MVP1 >= min && MVP1 <= max) break()
