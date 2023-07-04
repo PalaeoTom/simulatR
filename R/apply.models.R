@@ -82,6 +82,13 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
       }
     }
   }
+  ## If PGR is a variable, update to latest rate per unit time
+  if(any(p0$variable.names == "PGR")){
+    for(j in unlist(p0$populated.regions)){
+      ## update with rate from previous interval - assumed to be constant
+      p1$population.variables[[j]]["PGR"] <- abs(p0$population.variables[[j]]["G"]-p1$population.variables[[j]]["G"])/abs(t1-t0)
+    }
+  }
   ## export if set
   if(export){
     saveRDS(p1, file = paste0(name.out, "_", t1, "_pops.Rds"))
