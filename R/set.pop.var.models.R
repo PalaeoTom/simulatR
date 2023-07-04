@@ -76,26 +76,23 @@ set.pop.var.seeds <- function(pop.var.seeds, abundance = "default", genome = "de
     # now checks are complete, create final output as list
     output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP, new.var.model)
     names(output) <- c("ADD", "DP",  "A", "G", "PGT", "PGR", "MVP", names(new.var.model))
-    output <- output[!is.na(output)]
+    # drop variables not included in pop.var.seeds$variable.names object
+    output <- output[names(output) %in% pop.var.seeds$variable.names]
   } else {
     output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP)
     names(output) <- c("ADD", "DP", "A", "G", "PGT", "PGR", "MVP")
-    output <- output[!is.na(output)]
+    # drop variables not included in pop.var.seeds$variable.names object
+    output <- output[names(output) %in% pop.var.seeds$variable.names]
   }
   ## add element with names
   variables <- names(output)
-  ## split names of abundance and min.via.pop
-  if(any(variables == "MVPA")){
-    variables <- c(  variables[which(which(!variables == "MVPA") < which(variables == "MVPA"))],
-                     "abundance", "MVP",
-                     variables[which(which(!variables == "MVPA") > which(variables == "MVPA"))])
-  }
   ## add to end of output
   final <- c(output, "variable.names" = list(variables))
-  final <- structure(final, class = "pop.var.seeds")
+  ## assign model object class
+  final <- structure(final, class = "pop.var.models")
   ## export if set
   if(export){
-    saveRDS(final, file = paste0(name.out, "_pop_var_seeds.Rds"))
+    saveRDS(final, file = paste0(name.out, "_pop_var_models.Rds"))
   } else {
     return(final)
   }
