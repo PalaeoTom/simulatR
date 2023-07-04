@@ -74,13 +74,13 @@ set.pop.var.models <- function(pop.var.seeds, abundance = "default", genome = "d
         }
     }
     # now checks are complete, create final output as list
-    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP, new.var.model)
-    names(output) <- c("ADD", "DP",  "A", "G", "PGT", "PGR", "MVP", names(new.var.model))
+    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.MVP, new.var.model)
+    names(output) <- c("ADD", "DP",  "A", "G", "PGT", "MVP", names(new.var.model))
     # drop variables not included in pop.var.seeds$variable.names object
     output <- output[names(output) %in% pop.var.seeds$variable.names]
   } else {
-    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP)
-    names(output) <- c("ADD", "DP", "A", "G", "PGT", "PGR", "MVP")
+    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.MVP)
+    names(output) <- c("ADD", "DP", "A", "G", "PGT", "MVP")
     # drop variables not included in pop.var.seeds$variable.names object
     output <- output[names(output) %in% pop.var.seeds$variable.names]
   }
