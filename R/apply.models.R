@@ -50,7 +50,10 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
     }
     ## If fixed, leave
     if(pop.var.models[[i]] == "fixed"){
-      next()
+      for(j in unlist(p0$populated.regions)){
+        ## update using parse.model
+        p1$population.variables[[j]][i] <- p1$population.variables[[j]][i]
+      }
     }
     ## If a model, implement across all populations
     if(class(pop.var.models[[i]]) == "model"){
