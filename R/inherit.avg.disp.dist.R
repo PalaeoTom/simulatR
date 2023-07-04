@@ -34,7 +34,7 @@ inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1
     A0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")])
     ## get value between min and max
     while(TRUE){
-      ADD1 <- round(rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF*(A0/MVP0)), digits = 0)
+      ADD1 <- rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF*(A0/MVP0))
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(ADD1 >= min && ADD1 <= max) break()
@@ -52,7 +52,7 @@ inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1
     ## get value between min and max
     while(TRUE){
       ## sample new value - normal distribution with mean ADD0 and SD determine by time elapsed and SF alone.
-      ADD1 <- round(rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF), digits = 0)
+      ADD1 <- rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF)
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(ADD1 >= min && ADD1 <= max) break()
