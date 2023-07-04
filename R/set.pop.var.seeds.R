@@ -114,7 +114,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
       }
       ## create out
       out <- list(A, MVP)
-      names(out) <- c("abundance", "MVP")
+      names(out) <- c("A", "MVP")
       return(out)
     }
       ## configure final output if additional variables are provided
@@ -149,11 +149,11 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
         }
         # now checks are complete, create final output as list
         output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP, new.var.seed)
-        names(output) <- c("ADD", "DP",  "abundance", "G", "PGT", "PGR", "MVP", new.var.name)
+        names(output) <- c("ADD", "DP",  "A", "G", "PGT", "PGR", "MVP", new.var.name)
         output <- output[!is.na(output)]
       } else {
         output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP)
-        names(output) <- c("ADD", "DP", "abundance", "G", "PGT", "PGR", "MVP")
+        names(output) <- c("ADD", "DP", "A", "G", "PGT", "PGR", "MVP")
         output <- output[!is.na(output)]
       }
     }
@@ -162,7 +162,7 @@ set.pop.var.seeds <- function(avg.disp.dist = "default", disp.prop = "default", 
   ## split names of abundance and min.via.pop
   if(any(variables == "MVPA")){
     variables <- c(  variables[which(which(!variables == "MVPA") < which(variables == "MVPA"))],
-                     "abundance", "MVP",
+                     "A", "MVP",
                      variables[which(which(!variables == "MVPA") > which(variables == "MVPA"))])
   }
   ## add to end of output

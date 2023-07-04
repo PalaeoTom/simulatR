@@ -74,12 +74,12 @@ set.pop.var.seeds <- function(pop.var.seeds, abundance = "default", genome = "de
         }
     }
     # now checks are complete, create final output as list
-    output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP, new.var.model)
-    names(output) <- c("ADD", "DP",  "abundance", "G", "PGT", "PGR", "MVP", new.var.name)
+    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP, new.var.model)
+    names(output) <- c("ADD", "DP",  "A", "G", "PGT", "PGR", "MVP", names(new.var.model))
     output <- output[!is.na(output)]
   } else {
-    output <- c(seed.ADD, seed.DP, seed.A, seed.G, seed.PGT, seed.PGR, seed.MVP)
-    names(output) <- c("ADD", "DP", "abundance", "G", "PGT", "PGR", "MVP")
+    output <- c(model.ADD, model.DP, model.A, model.G, model.PGT, model.PGR, model.MVP)
+    names(output) <- c("ADD", "DP", "A", "G", "PGT", "PGR", "MVP")
     output <- output[!is.na(output)]
   }
   ## add element with names
