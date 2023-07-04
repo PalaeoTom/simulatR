@@ -45,7 +45,7 @@ model.genome <- function(p0, p, t0, t1, SF = 1){
       ## is distance equal to or than average dispersal distance multiplied by time
       if(p0$distances[r,r1] <= ADD1*(t0-t1)){
         ## find abundance of considered population
-        a1 <- unname((p0$population.variables[[i]][which(names(p0$population.variables[[i]]) == "abundance")]))
+        a1 <- unname((p0$population.variables[[i]][which(names(p0$population.variables[[i]]) == "A")]))
         ## find disp.prop of considered population
         DP1 <- unname(p0$population.variables[[i]][which(names(p0$population.variables[[i]]) == "DP")])
         ## find genome of considered population
@@ -63,7 +63,7 @@ model.genome <- function(p0, p, t0, t1, SF = 1){
       }
     }
     ## get abundance of p
-    a0 <- p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "abundance")]
+    a0 <- p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")]
     ## calculate weighted genome for species
     if(is.null(num)){
       wg <- g0
