@@ -26,7 +26,7 @@
 #' # generate seed populations
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
-#'# First example: evaluating a binary level-1 model
+#' # First example: evaluating a binary level-1 model
 #' # define model
 #' m1 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m1")
 #'

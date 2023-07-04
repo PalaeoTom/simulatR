@@ -4,16 +4,16 @@
 \alias{model.abundance}
 \title{Default abundance model}
 \usage{
-model.abundance(p0, p.ID, t.series, t0, SF = 1)
+model.abundance(p0, p, t0, t1, SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}
 
-\item{p.ID}{string identifying population in question.}
-
-\item{t.series}{a numeric vector specifying time bins.}
+\item{p}{the numeric index of the population in p0$population.variables}
 
 \item{t0}{time of previous time bin.}
+
+\item{t1}{time of current time bin.}
 
 \item{SF}{a numeric value by which the changes in abundance can be scaled. For flexibility.}
 }
@@ -32,14 +32,13 @@ Changes are drawn from normal distributions where the standard deviation is the 
 \keyword{100,}
 \keyword{400)}
 \keyword{5,}
+\keyword{90)}
 \keyword{<-}
 \keyword{=}
-\keyword{Create}
 \keyword{PVs}
 \keyword{PVs,}
 \keyword{a}
 \keyword{ar}
-\keyword{c(100,90,80,70,60,50,40,30,20,10)}
 \keyword{define}
 \keyword{function()}
 \keyword{gen.seed.pops(stage}
@@ -52,7 +51,7 @@ Changes are drawn from normal distributions where the standard deviation is the 
 \keyword{n.row}
 \keyword{new.var.name}
 \keyword{new.var.seed}
-\keyword{p.ID}
+\keyword{p}
 \keyword{p0}
 \keyword{p0,}
 \keyword{pop.var.seeds}
@@ -64,11 +63,7 @@ Changes are drawn from normal distributions where the standard deviation is the 
 \keyword{sample(1:length(p0$population.variables),}
 \keyword{seed}
 \keyword{set.pop.var.seeds(pop.gen.threshold}
-\keyword{specifying}
 \keyword{stage}
-\keyword{t.series}
-\keyword{t.series)}
 \keyword{t0}
-\keyword{times}
+\keyword{t1}
 \keyword{variables}
-\keyword{vector}

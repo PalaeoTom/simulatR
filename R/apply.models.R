@@ -45,6 +45,7 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
   ## for each model included in pop.var.models
   for(i in 1:length(pop.var.models)){
 
+
   }
   ## Assign populations class
   p1 <- structure(p1, class = "populations")
