@@ -22,6 +22,7 @@
 #' # generate seed populations
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
+#' # Run function
 #' model.genome(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
 model.genome <- function(p0, p, t0, t1, SF = 1){
   ## get genome at previous time step

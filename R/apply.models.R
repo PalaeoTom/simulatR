@@ -75,7 +75,7 @@ apply.models <- function(s, p0, pop.var.models, t0, t1, export = F, name.out = "
       }
     }
     ## If a function, implement across all populations
-    if(!class(pop.var.models[[i]] == "model") && is.function(pop.var.models[[i]])){
+    if(!class(pop.var.models[[i]]) == "model" && is.function(pop.var.models[[i]])){
       for(j in unlist(p0$populated.regions)){
         ## update using parse.model
         p1$population.variables[[j]][i] <- pop.var.models[[i]](p0 = p0, p = j, t0 = t0, t1 = t1, SF = 1)

@@ -54,7 +54,7 @@ m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV
 # Create a level-3 continuous model
 m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3.2*m4.1", ID = "m5")
 
-parse and evaluate model
+# parse and evaluate model
 parse.nested.model(m = m5, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 }
 \keyword{internal}
