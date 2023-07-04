@@ -28,11 +28,13 @@ inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1
   ADD0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "ADD")])
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
+    ## get MVP
+    MVP0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "MVP")])
     ## get abundance
     A0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")])
     ## get value between min and max
     while(TRUE){
-      ADD1 <- round(rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF*(A0/ADD0)), digits = 0)
+      ADD1 <- round(rnorm(1, mean = ADD0, sd = abs(t1-t0)*SF*(A0/MVP0)), digits = 0)
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(ADD1 >= min && ADD1 <= max) break()
