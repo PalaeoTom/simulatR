@@ -71,7 +71,7 @@ parse.model <- function(m, s, p0, p, r){
           ## variable in populations, not stage
           if(!any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
             ## get var
-            var <- p0$"population.variables"[[which(names(p0$"population.variables") == p)]][[which(names(p0$"population.variables"[[which(names(p0$"population.variables") == p)]]) == m$variables[x])]]
+            var <- p0$"population.variables"[[p]][[which(names(p0$"population.variables"[[p]]) == m$variables[x])]]
           }
           ## if present in both, break and request re-label
           if(any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
@@ -110,7 +110,7 @@ parse.model <- function(m, s, p0, p, r){
           ## variable in populations, not stage
           if(!any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
             ## get var
-            var <- p0$"population.variables"[[which(names(p0$"population.variables") == p)]][[which(names(p0$"population.variables"[[which(names(p0$"population.variables") == p)]]) == m$variables[x])]]
+            var <- p0$"population.variables"[[p]][[which(names(p0$"population.variables"[[p]]) == m$variables[x])]]
           }
           ## if present in both, break and request re-label
           if(any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
