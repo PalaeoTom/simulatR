@@ -84,12 +84,8 @@ set.pop.var.models <- function(pop.var.seeds, abundance = "default", genome = "d
     # drop variables not included in pop.var.seeds$variable.names object
     output <- output[names(output) %in% pop.var.seeds$variable.names]
   }
-  ## add element with names
-  variables <- names(output)
-  ## add to end of output
-  final <- c(output, "variable.names" = list(variables))
   ## assign model object class
-  final <- structure(final, class = "pop.var.models")
+  final <- structure(output, class = "pop.var.models")
   ## export if set
   if(export){
     saveRDS(final, file = paste0(name.out, "_pop_var_models.Rds"))

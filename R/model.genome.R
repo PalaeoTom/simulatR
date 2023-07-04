@@ -4,9 +4,9 @@
 #' Capable of inducing changes based on principles of population genetics and abundance.
 #'
 #' @param p0 populations object from previous time bin.
-#' @param p.ID string identifying population in question.
-#' @param t.series a numeric vector specifying time bins.
+#' @param p the numeric index of the population in p0$population.variables.
 #' @param t0 time of previous time bin.
+#' @param t1 time of current time bin.
 #' @param SF a numeric value by which the changes in mean genome can be scaled. For flexibility.
 #'
 #' @return a numeric value.
@@ -22,26 +22,21 @@
 #' # generate seed populations
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
-#' # Create vector specifying times
-#' t.series <- c(100,90,80,70,60,50,40,30,20,10)
-#'
-#' model.genome(p0 = p0, p.ID = sample(1:length(p0$population.variables), 1), t.series = t.series, t0 = 100)
-model.genome <- function(p0, p.ID, t.series, t0, SF = 1){
-  ## get new time
-  t1 <- t.series[which(t.series == t0)+1]
+#' model.genome(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
+model.genome <- function(p0, p, t0, t1, SF = 1){
   ## get genome at previous time step
-  g0 <- unname(p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "G")])
+  g0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "G")])
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
     ## identify species
-    s <- which(sapply(1:length(p0$species.representation), function(x) any(p0$species.representation[[x]] == p.ID)))
+    s <- which(sapply(1:length(p0$species.representation), function(x) any(p0$species.representation[[x]] == p)))
     ## get location of population
-    r <- which(sapply(1:length(p0$populated.regions), function(x) any(p0$populated.regions[[x]] == p.ID)))
+    r <- which(sapply(1:length(p0$populated.regions), function(x) any(p0$populated.regions[[x]] == p)))
     ## initialise numerator and denominator vectors
     num <- c()
     den <- c()
     ## get location of all other populations of this species
-    for (i in p0$species.representation[[s]][!p0$species.representation[[s]] == p.ID]){
+    for (i in p0$species.representation[[s]][!p0$species.representation[[s]] == p]){
       ## find location of other population
       r1 <- which(sapply(1:length(p0$populated.regions), function(x) any(p0$populated.regions[[x]] == i)))
       ## get average dispersal distance of population
@@ -66,8 +61,8 @@ model.genome <- function(p0, p.ID, t.series, t0, SF = 1){
         den <- den
       }
     }
-    ## get abundance of p.ID
-    a0 <- p0$population.variables[[p.ID]][which(names(p0$population.variables[[p.ID]]) == "abundance")]
+    ## get abundance of p
+    a0 <- p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "abundance")]
     ## calculate weighted genome for species
     if(is.null(num)){
       wg <- g0

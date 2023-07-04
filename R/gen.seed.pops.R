@@ -84,7 +84,7 @@ gen.seed.pops <- function(stage, pop.var.seeds, n, method = "random", export = F
   t0 <- structure(t0, class = "populations")
   ## export if set
   if(export){
-    saveRDS(t0, file = paste0(t0, "_seed_pops.Rds"))
+    saveRDS(t0, file = paste0(name.out, "_seed_pops.Rds"))
   } else {
     return(t0)
   }
