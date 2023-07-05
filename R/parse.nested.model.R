@@ -5,6 +5,8 @@
 #' @param model A level-2 or greater model created with specify.nested.model.
 #' @param stage A stage object created with make.stage or checked with check.stage.
 #' @param p0 A populations object created with gen.seed.pops or simulate.
+#' @param t0 A numeric value specifying previous time bin.
+#' @param t1 A numeric value specifying current time bin.
 #' @param p A string specifying the name of the population.
 #' @param r A numeric value specifying the region the process is occurring in/to.
 #'
@@ -36,7 +38,7 @@
 #' m3 <- specify.nested.model(s = s, p = p0, m = list(m1,m2), type = "binary", variables = c("PV1"), expression = "1 <= PV1/(m1.1*m2.1)", ID = "m3")
 #'
 #' # Try parsing
-#' parse.nested.model(m = m3, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
+#' parse.nested.model(m = m3, s = s, p0 = p0, t0 = 100, t1 = 90, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 #'
 #' # Create another level-1 model
 #' m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")
@@ -45,8 +47,8 @@
 #' m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3.2*m4.1", ID = "m5")
 #'
 #' # parse and evaluate model
-#' parse.nested.model(m = m5, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
-parse.nested.model <- function(m, s, p0, p, r){
+#' parse.nested.model(m = m5, s = s, p0 = p0, t0 = 100, t1 = 90, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
+parse.nested.model <- function(m, s, p0, t0, t1, p, r){
   ## check stage is a stage object
   if(!class(s)=="stage"){
     stop("stage is not a stage object")
@@ -98,9 +100,13 @@ parse.nested.model <- function(m, s, p0, p, r){
         if(any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
           stop(paste0("model variable ", x, " is present is both a stage and population variable. Re-label to differentiate and re-try"))
         }
-        ## if present in neither, break and request re-label
-        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x])){
-          stop(paste0("model variable ", x, " is not present is not a stage and population variable. Please ensure model correctly specifies a stage or population variables"))
+        ## if variable == "time", return time elapsed
+        if(m$"variables"[x] == "time"){
+          var <- abs(t1-t0)
+        }
+        ## if present in neither and not "time, break and request re-label
+        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+          stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
         }
         return(var)
       })
@@ -155,9 +161,13 @@ parse.nested.model <- function(m, s, p0, p, r){
         if(any(s$"variable.names" == m$"variables"[x]) && any(p0$"variable.names" == m$"variables"[x])){
           stop(paste0("model variable ", x, " is present is both a stage and population variable. Re-label to differentiate and re-try"))
         }
-        ## if present in neither, break and request re-label
-        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x])){
-          stop(paste0("model variable ", x, " is not present is not a stage and population variable. Please ensure model correctly specifies a stage or population variables"))
+        ## if variable == "time", return time elapsed
+        if(m$"variables"[x] == "time"){
+          var <- abs(t1-t0)
+        }
+        ## if present in neither and not "time, break and request re-label
+        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+          stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
         }
         return(var)
       })

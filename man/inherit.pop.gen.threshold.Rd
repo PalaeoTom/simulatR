@@ -4,7 +4,7 @@
 \alias{inherit.pop.gen.threshold}
 \title{Population genetic rate of evolution threshold inheritance model}
 \usage{
-inherit.pop.gen.threshold(p0, p, t0, t1, min = 0, max = 1, SF = 1e-04)
+inherit.pop.gen.threshold(p0, p, t0, t1, min = 0, max = 1, SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}

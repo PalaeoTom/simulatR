@@ -4,12 +4,14 @@
 #' Models should be nested one level at a time. For example, if you want to nest a nested model (i.e. create a level-3 model), first you need to create the level-2 nested model,
 #' then submit that as a variable during the creation of the level-3 model. Note that if you submit a list of models as m, these will be referred to in the model by the names provided or
 #' in the order they appear in the list. For example, if you don't assign names to your models via names(), the first model in the list will be assigned the identifier "m1", the second "m2", and so forth.
+#' If time is to be used as a variable, ensure it is referred to as "time" in model expression, otherwise the parse.model functions will not recognise the variable.
 #'
 #' @param s A stage object
 #' @param p A populations object
 #' @param m Either a model object, or a list of model objects.
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population variables, stage variables, or NA (where there are no variables involved).
+#' @param time.as.variable TRUE or FALSE (the default). If TRUE, "time" is added to the variables element of the model.
 #' @param expression A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).
 #' @param ID A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").
 #'
@@ -40,7 +42,7 @@
 #'
 #' # build nested model
 #' m3 <- specify.nested.model(s = s, p = p0, m = m.list, type = "binary", variables = c("SV1", "PV1"), expression = "PV1*m1.1 <= SV1*m2.1", ID = "m3")
-specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new.model"){
+specify.nested.model <- function(s, p, m, type, variables, time.as.variable = FALSE, expression, ID = "new.model"){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
     stop("argument 'type' is not 'binary' or 'continuous'")
@@ -150,6 +152,15 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   }
   ## re-order
   models.out <- models.out[order(names(models.out))]
+  ## If time.as.variable is true, add "time" to list of variables.
+  ## If time.as.variable is true, add "time" to list of variables.
+  if(time.as.variable){
+    if(is.na(variables)){
+      variables <- "time"
+    } else {
+      variables <- c(variables, "time")
+    }
+  }
   ## Assemble into model structure
   out <- list(
     "ID" = paste0(ID,".",level),

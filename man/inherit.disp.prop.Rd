@@ -4,7 +4,7 @@
 \alias{inherit.disp.prop}
 \title{Dispersal propensity inheritance model}
 \usage{
-inherit.disp.prop(p0, p, t0, t1, min = 0, max = 1, SF = 1e-04)
+inherit.disp.prop(p0, p, t0, t1, min = 0, max = 1, SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}
