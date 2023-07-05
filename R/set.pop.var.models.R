@@ -2,7 +2,7 @@
 #'
 #' set.pop.var.models generates a pop.var.models object which specifies which population variables change over time and the models that define how they do so.
 #' Uses pop.var.seeds to determine which models to load. By default, defines models for change in population abundance and mean genome, and sets all other core
-#' population variables to fixed. If model objects are provided, ensure they return the new numeric value for the variable at the time as their output (i.e the highest level model is continuous).
+#' population variables to fixed (i.e. do not change through time). If model objects are provided, ensure they return the new numeric value for the variable at the time as their output (i.e the highest level model is continuous).
 #'
 #' @param pop.var.seeds A pop.var.seeds object, specifying which population variables.
 #' @param abundance Either "default" (the default), a model object (built using specify.model or specify.nested.model), or "fixed".
@@ -11,7 +11,7 @@
 #' @param disp.prop Either "fixed" (the default), or a model object (built using specify.model or specify.nested.model).
 #' @param min.via.pop Either "fixed" (the default), or a model object (built using specify.model or specify.nested.model).
 #' @param pop.gen.threshold Either "fixed" (the default), or a model object (built using specify.model or specify.nested.model).
-#' @param new.var.model A list, where each element specifies the prescribed model for each non-standard variable included. Each element of the list should share the name of the variable it pertains to. List elements should either be "fixed" (if variable is unchanging), a model object (built using specify.model or specify.nested.model), or a function which specifies how the new value is derived.
+#' @param new.var.model A list, where each element specifies the prescribed model for each non-standard variable included. Each element of the list should share the name of the variable it pertains to. List elements should either be "fixed" (if variable is unchanging) or a model object (built using specify.model or specify.nested.model).
 #' @param name.out If export = TRUE, a string that specifies the name of the output file.
 #' @param export If TRUE, updated stage with new variable is exported as an Rds file to working directory.
 #'

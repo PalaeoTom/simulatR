@@ -32,7 +32,7 @@ set.pop.var.models(
 
 \item{pop.gen.threshold}{Either "fixed" (the default), or a model object (built using specify.model or specify.nested.model).}
 
-\item{new.var.model}{A list, where each element specifies the prescribed model for each non-standard variable included. Each element of the list should share the name of the variable it pertains to. List elements should either be "fixed" (if variable is unchanging), a model object (built using specify.model or specify.nested.model), or a function which specifies how the new value is derived.}
+\item{new.var.model}{A list, where each element specifies the prescribed model for each non-standard variable included. Each element of the list should share the name of the variable it pertains to. List elements should either be "fixed" (if variable is unchanging) or a model object (built using specify.model or specify.nested.model).}
 
 \item{name.out}{If export = TRUE, a string that specifies the name of the output file.}
 
@@ -44,7 +44,7 @@ A pop.var.models object.
 \description{
 set.pop.var.models generates a pop.var.models object which specifies which population variables change over time and the models that define how they do so.
 Uses pop.var.seeds to determine which models to load. By default, defines models for change in population abundance and mean genome, and sets all other core
-population variables to fixed. If model objects are provided, ensure they return the new numeric value for the variable at the time as their output (i.e the highest level model is continuous).
+population variables to fixed (i.e. do not change through time). If model objects are provided, ensure they return the new numeric value for the variable at the time as their output (i.e the highest level model is continuous).
 }
 \examples{
 # Generate pop.var.seeds object
