@@ -23,7 +23,7 @@
 #'
 #' # Run function
 #' inherit.min.via.pop(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
-inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = NULL, SF = 1){
+inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = "none", SF = 1){
   ## get MVP at previous time step
   MVP0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "MVP")])
   ## if pop.gen switched on
@@ -39,11 +39,11 @@ inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = NULL, SF = 1){
         if(MVP1 >= min && MVP1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(MVP1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(MVP1 <= max) break()
       }
     }
@@ -57,11 +57,11 @@ inherit.min.via.pop <- function(p0, p, t0, t1, min = 1, max = NULL, SF = 1){
         if(MVP1 >= min && MVP1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(MVP1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(MVP1 <= max) break()
       }
     }

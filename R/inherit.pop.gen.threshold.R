@@ -40,11 +40,11 @@ inherit.pop.gen.threshold <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.00
         if(PGT1 >= min && PGT1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(PGT1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(PGT1 <= max) break()
       }
     }
@@ -58,11 +58,11 @@ inherit.pop.gen.threshold <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.00
         if(PGT1 >= min && PGT1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(PGT1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(PGT1 <= max) break()
       }
     }

@@ -4,12 +4,23 @@
 \alias{apply.inher}
 \title{Apply inhertiance models}
 \usage{
-apply.inher(s, p0, pop.var.inher, t0, t1, export = F, name.out = "new")
+apply.inher(
+  s,
+  p0,
+  new.spec,
+  pop.var.inher,
+  t0,
+  t1,
+  export = F,
+  name.out = "new"
+)
 }
 \arguments{
 \item{s}{a stage object.}
 
 \item{p0}{a populations object}
+
+\item{new.spec}{a vector specifying which populations (by their index in p0$population.variables) have speciated this time bin.}
 
 \item{pop.var.inher}{a pop.var.inher object}
 

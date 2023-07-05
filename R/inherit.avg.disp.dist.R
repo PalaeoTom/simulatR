@@ -23,7 +23,7 @@
 #'
 #' # Run function
 #' inherit.avg.disp.dist(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
-inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1){
+inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = "none", SF = 1){
   ## get ADD at previous time step
   ADD0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "ADD")])
   ## if pop.gen switched on
@@ -40,11 +40,11 @@ inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1
         if(ADD1 >= min && ADD1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(ADD1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(ADD1 <= max) break()
       }
     }
@@ -58,11 +58,11 @@ inherit.avg.disp.dist <- function(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1
         if(ADD1 >= min && ADD1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(ADD1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(ADD1 <= max) break()
       }
     }

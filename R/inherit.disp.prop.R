@@ -40,11 +40,11 @@ inherit.disp.prop <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.0001){
         if(DP1 >= min && DP1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(DP1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(DP1 <= max) break()
       }
     }
@@ -58,11 +58,11 @@ inherit.disp.prop <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.0001){
         if(DP1 >= min && DP1 <= max) break()
       }
       ## If just min
-      if(is.numeric(min) && is.null(max)){
+      if(is.numeric(min) && max == "none"){
         if(DP1 >= min) break()
       }
       ## If just max
-      if(is.null(min) && is.numeric(max)){
+      if(min == "none" && is.numeric(max)){
         if(DP1 <= max) break()
       }
     }

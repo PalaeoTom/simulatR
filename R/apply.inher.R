@@ -31,7 +31,7 @@
 #' p0 <- gen.seed.pops(stage = s, pop.var.seeds = PVs, n = 10)
 #'
 #' # run function
-#' p1 <- apply.inher(s = s, p0 = p0, pop.var.inher = PVi, t0 = 100, t1 = 90)
+#' p1 <- apply.inher(s = s, p0 = p0, new.spec = sample(1:length(p0$population.variables), 1), pop.var.inher = PVi, t0 = 100, t1 = 90)
 apply.inher <- function(s, p0, new.spec, pop.var.inher, t0, t1, export = F, name.out = "new"){
   ## check s is a stage object
   if(!class(s)=="stage"){
