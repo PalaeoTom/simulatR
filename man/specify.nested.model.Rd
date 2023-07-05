@@ -4,7 +4,16 @@
 \alias{specify.nested.model}
 \title{Specify nested model}
 \usage{
-specify.nested.model(s, p, m, type, variables, expression, ID = "new.model")
+specify.nested.model(
+  s,
+  p,
+  m,
+  type,
+  variables,
+  time.as.variable = FALSE,
+  expression,
+  ID = "new.model"
+)
 }
 \arguments{
 \item{s}{A stage object}
@@ -16,6 +25,8 @@ specify.nested.model(s, p, m, type, variables, expression, ID = "new.model")
 \item{type}{Either "binary" or "continuous".}
 
 \item{variables}{A character vector containing the names of the population variables, stage variables, or NA (where there are no variables involved).}
+
+\item{time.as.variable}{TRUE or FALSE (the default). If TRUE, "time" is added to the variables element of the model.}
 
 \item{expression}{A character vector specifying the construction of the model as a single string. If m is a model, it should be called in the string via 'm'. If m is a list of models, the models should be specified by their names (names(m), or their position in the list with the prefix 'm' ('m1', 'm2', and so forth).}
 
@@ -29,6 +40,7 @@ Creates a model object that specifies the details of a model to be used in simul
 Models should be nested one level at a time. For example, if you want to nest a nested model (i.e. create a level-3 model), first you need to create the level-2 nested model,
 then submit that as a variable during the creation of the level-3 model. Note that if you submit a list of models as m, these will be referred to in the model by the names provided or
 in the order they appear in the list. For example, if you don't assign names to your models via names(), the first model in the list will be assigned the identifier "m1", the second "m2", and so forth.
+If time is to be used as a variable, ensure it is referred to as "time" in model expression, otherwise the parse.model functions will not recognise the variable.
 }
 \examples{
 #' # make stage

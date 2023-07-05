@@ -62,7 +62,7 @@ specify.model <- function(s, p, type, variables, time.as.variable = FALSE, expre
   }
   ## If time.as.variable is true, add "time" to list of variables.
   if(time.as.variable){
-    if(is.na(variables)){
+    if(all(is.na(variables))){
       variables <- "time"
     } else {
       variables <- c(variables, "time")

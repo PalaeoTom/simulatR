@@ -4,10 +4,14 @@
 \alias{parse.nested.model}
 \title{Parse and evaluate a nested model}
 \usage{
-parse.nested.model(m, s, p0, p, r)
+parse.nested.model(m, s, p0, t0, t1, p, r)
 }
 \arguments{
 \item{p0}{A populations object created with gen.seed.pops or simulate.}
+
+\item{t0}{A numeric value specifying previous time bin.}
+
+\item{t1}{A numeric value specifying current time bin.}
 
 \item{p}{A string specifying the name of the population.}
 
@@ -46,7 +50,7 @@ m2 <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"),
 m3 <- specify.nested.model(s = s, p = p0, m = list(m1,m2), type = "binary", variables = c("PV1"), expression = "1 <= PV1/(m1.1*m2.1)", ID = "m3")
 
 # Try parsing
-parse.nested.model(m = m3, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
+parse.nested.model(m = m3, s = s, p0 = p0, t0 = 100, t1 = 90, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 
 # Create another level-1 model
 m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV1"), expression = "PV1*SV1", ID = "m4")
@@ -55,6 +59,6 @@ m4 <- specify.model(s = s, p = p0, type = "continuous", variables = c("SV1", "PV
 m5 <- specify.nested.model(s = s, p = p0, m = list(m3,m4), type = "continuous", variables = NA, expression = "m3.2*m4.1", ID = "m5")
 
 # parse and evaluate model
-parse.nested.model(m = m5, s = s, p0 = p0, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
+parse.nested.model(m = m5, s = s, p0 = p0, t0 = 100, t1 = 90, p = sample(1:length(p0$population.variables), 1), r = sample(s$regions, 1))
 }
 \keyword{internal}
