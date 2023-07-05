@@ -23,7 +23,7 @@
 #' pop.seeds <- set.pop.var.seeds()
 #'
 #' # Generate pop.var.models object
-#' pop.models <- set.pop.var.inher(pop.var.seeds = pop.seeds)
+#' pop.inher <- set.pop.var.inher(pop.var.seeds = pop.seeds)
 set.pop.var.inher <- function(pop.var.seeds, abundance = "fixed", genome = "fixed", avg.disp.dist = "default", disp.prop = "default", min.via.pop = "default", pop.gen.threshold = "fixed", new.var.inher = NULL, name.out = "new", export = F){
   ## base function for assigning abundance model
   if(!class(abundance) == "model" && !abundance == "fixed"){

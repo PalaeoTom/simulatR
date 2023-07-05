@@ -3,6 +3,7 @@
 export(SAR.power)
 export(add.cc)
 export(add.var.stage)
+export(apply.inher)
 export(apply.models)
 export(check.stage)
 export(gen.seed.pops)

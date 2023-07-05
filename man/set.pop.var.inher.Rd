@@ -51,5 +51,5 @@ population variables to fixed (i.e. do not change during speciation event). If m
 pop.seeds <- set.pop.var.seeds()
 
 # Generate pop.var.models object
-pop.models <- set.pop.var.inher(pop.var.seeds = pop.seeds)
+pop.inher <- set.pop.var.inher(pop.var.seeds = pop.seeds)
 }
