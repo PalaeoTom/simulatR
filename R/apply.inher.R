@@ -79,7 +79,7 @@ apply.inher <- function(s, p0, new.spec, pop.var.inher, t0, t1, export = F, name
     if(!class(pop.var.inher[[i]]) == "model" && is.function(pop.var.inher[[i]])){
       for(j in new.spec){
         ## update using parse.model
-        p1$population.variables[[j]][i] <- pop.var.inher[[i]](p0 = p0, p = j, t0 = t0, t1 = t1, SF = 1)
+        p1$population.variables[[j]][i] <- pop.var.inher[[i]](p0 = p0, p = j, t0 = t0, t1 = t1)
       }
     }
   }

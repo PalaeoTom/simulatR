@@ -4,7 +4,7 @@
 \alias{inherit.min.via.pop}
 \title{Minimum viable population number inheritance model}
 \usage{
-inherit.min.via.pop(p0, p, t0, t1, min = 1, max = NULL, SF = 1)
+inherit.min.via.pop(p0, p, t0, t1, min = 1, max = "none", SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}

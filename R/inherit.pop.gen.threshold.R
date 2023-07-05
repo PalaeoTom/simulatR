@@ -23,18 +23,16 @@
 #'
 #' # Run function
 #' inherit.pop.gen.threshold(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
-inherit.pop.gen.threshold <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.0001){
+inherit.pop.gen.threshold <- function(p0, p, t0, t1, min = 0, max = 1, SF = 1){
   ## get PGT at previous time step
   PGT0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "PGT")])
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
-    ## get MVP
-    MVP0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "MVP")])
     ## get abundance
     A0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")])
     ## get value between min and max
     while(TRUE){
-      PGT1 <- rnorm(1, mean = PGT0, sd = abs(t1-t0)*SF*(A0/MVP0))
+      PGT1 <- rnorm(1, mean = PGT0, sd = abs(t1-t0)*SF*(A0/10000000))
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(PGT1 >= min && PGT1 <= max) break()

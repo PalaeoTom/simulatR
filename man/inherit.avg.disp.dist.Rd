@@ -4,7 +4,7 @@
 \alias{inherit.avg.disp.dist}
 \title{Average dispersal distance inheritance model}
 \usage{
-inherit.avg.disp.dist(p0, p, t0, t1, min = 0.005, max = NULL, SF = 1)
+inherit.avg.disp.dist(p0, p, t0, t1, min = 0.005, max = "none", SF = 1)
 }
 \arguments{
 \item{p0}{populations object from previous time bin.}

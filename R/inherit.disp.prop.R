@@ -23,18 +23,16 @@
 #'
 #' # Run function
 #' inherit.disp.prop(p0 = p0, p = sample(1:length(p0$population.variables), 1), t0 = 100, t1 = 90)
-inherit.disp.prop <- function(p0, p, t0, t1, min = 0, max = 1, SF = 0.0001){
+inherit.disp.prop <- function(p0, p, t0, t1, min = 0, max = 1, SF = 1){
   ## get DP at previous time step
   DP0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "DP")])
   ## if pop.gen switched on
   if(any(p0$variable.names == "PGT")){
-    ## get MVP
-    MVP0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "MVP")])
     ## get abundance
     A0 <- unname(p0$population.variables[[p]][which(names(p0$population.variables[[p]]) == "A")])
     ## get value between min and max
     while(TRUE){
-      DP1 <- rnorm(1, mean = DP0, sd = abs(t1-t0)*SF*(A0/MVP0))
+      DP1 <- rnorm(1, mean = DP0, sd = abs(t1-t0)*SF*(A0/10000000))
       ## If min and max employed
       if(is.numeric(min) && is.numeric(max)){
         if(DP1 >= min && DP1 <= max) break()
