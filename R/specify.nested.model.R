@@ -149,10 +149,9 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       models.out <- list(m)
     } else {
       models.out <- m
+      models.out <- models.out[order(names(models.out))]
     }
   }
-  ## re-order
-  models.out <- models.out[order(names(models.out))]
   ## Assemble into model structure
   out <- list(
     "ID" = paste0(ID,".",level),
