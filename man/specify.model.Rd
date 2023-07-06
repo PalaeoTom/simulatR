@@ -4,15 +4,7 @@
 \alias{specify.model}
 \title{Specify model}
 \usage{
-specify.model(
-  s,
-  p,
-  type,
-  variables,
-  time.as.variable = FALSE,
-  expression,
-  ID = "new.model"
-)
+specify.model(s, p, type, variables, expression, ID = "new.model")
 }
 \arguments{
 \item{s}{A stage object}
@@ -23,8 +15,6 @@ specify.model(
 
 \item{variables}{A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).}
 
-\item{time.as.variable}{TRUE or FALSE (the default). If TRUE, "time" is added to variables element of model.}
-
 \item{expression}{A character vector specifying the construction of the model as a single string.}
 
 \item{ID}{A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").}
@@ -34,7 +24,9 @@ a model object
 }
 \description{
 Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables).
-If time is to be used as a variable, ensure it is referred to as "time" in model expression, otherwise the parse.model functions will not recognise the variable.
+Several core stage and simulation elements can be called by including specific strings in the 'variables' vector: 'time' calls the time elapsed between the previous time bin and
+the present; 'regions' calls the 'regions' stage object (a matrix specifying region numbers); 'dimensions' the 'dimensions' stage object (a matrix specifying the area of each region);
+'distances' the 'distances' stage object (a square matrix specifying the distances separating each region).
 }
 \examples{
 # make stage

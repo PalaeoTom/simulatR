@@ -85,7 +85,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   }
   ## Check variables are present in either s or p
   if(!all(is.na(variables))){
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
+    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "time", "regions", "distances", "dimensions"))))){
       stop("one or more variables specified are not included in stage or populations objects provided")
     }
   }

@@ -55,9 +55,9 @@ specify.model <- function(s, p, type, variables, expression, ID = "new.model"){
   if(!class(p)=="populations"){
     stop("p is not a populations object")
   }
-  ## Check variables are present in either s or p
+  ## Check variables are present in either s or p, or are 'time', 'regions', 'distances', or 'dimensions'
   if(!all(is.na(variables))){
-  if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
+  if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "time", "regions", "distances", "dimensions"))))){
     stop("one or more variables specified are not included in stage or populations objects provided")
   }
   }
