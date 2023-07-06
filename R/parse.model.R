@@ -83,8 +83,20 @@ parse.model <- function(m, s, p0, t0, t1, p, r){
           if(m$"variables"[x] == "time"){
             var <- abs(t1-t0)
           }
-          ## if present in neither and not "time, break and request re-label
-          if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+          ## if variables == "regions", return 'regions' matrix from stage
+          if(m$"variables"[x] == "regions"){
+            var <- s$regions
+          }
+          ## if variables == "distances", return 'distances' matrix from stage
+          if(m$"variables"[x] == "dimensions"){
+            var <- s$dimensions
+          }
+          ## if variables == "dimensions", return 'dimensions' matrix from stage
+          if(m$"variables"[x] == "distances"){
+            var <- s$distances
+          }
+          ## if present in neither and not 'time', 'regions', 'distances', nor 'dimensions', break and request re-label
+          if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time" && !m$"variables"[x] == "regions" && !m$"variables"[x] == "dimensions" && !m$"variables"[x] == "distances"){
             stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
           }
           return(var)
@@ -126,8 +138,20 @@ parse.model <- function(m, s, p0, t0, t1, p, r){
           if(m$"variables"[x] == "time"){
             var <- abs(t1-t0)
           }
-          ## if present in neither and not "time, break and request re-label
-          if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+          ## if variables == "regions", return 'regions' matrix from stage
+          if(m$"variables"[x] == "regions"){
+            var <- s$regions
+          }
+          ## if variables == "distances", return 'distances' matrix from stage
+          if(m$"variables"[x] == "dimensions"){
+            var <- s$dimensions
+          }
+          ## if variables == "dimensions", return 'dimensions' matrix from stage
+          if(m$"variables"[x] == "distances"){
+            var <- s$distances
+          }
+          ## if present in neither and not 'time', 'regions', 'distances', nor 'dimensions', break and request re-label
+          if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time" && !m$"variables"[x] == "regions" && !m$"variables"[x] == "dimensions" && !m$"variables"[x] == "distances"){
             stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
           }
           return(var)

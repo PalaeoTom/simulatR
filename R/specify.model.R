@@ -1,13 +1,14 @@
 #' Specify model
 #'
 #' Creates a model object that specifies the details of a model to be used in simulation. Only produces level-1 models (i.e. no models can be included as variables).
-#' If time is to be used as a variable, ensure it is referred to as "time" in model expression, otherwise the parse.model functions will not recognise the variable.
+#' Several core stage and simulation elements can be called by including specific strings in the 'variables' vector: 'time' calls the time elapsed between the previous time bin and
+#' the present; 'regions' calls the 'regions' stage object (a matrix specifying region numbers); 'dimensions' the 'dimensions' stage object (a matrix specifying the area of each region);
+#' 'distances' the 'distances' stage object (a square matrix specifying the distances separating each region).
 #'
 #' @param s A stage object
 #' @param p A populations object
 #' @param type Either "binary" or "continuous".
 #' @param variables A character vector containing the names of the population and stage variables included in the model or NA (where there are no variables involved).
-#' @param time.as.variable TRUE or FALSE (the default). If TRUE, "time" is added to variables element of model.
 #' @param expression A character vector specifying the construction of the model as a single string.
 #' @param ID  A character string assigning a unique ID to the model. Default is "new.model'. Note that all IDs provided will have a suffix appended denoting their level (e.g. a level-2 model with ID "m1" will be labelled "m1.2").
 #'
@@ -29,7 +30,7 @@
 #'
 #' # define model
 #' m <- specify.model(s = s, p = p0, type = "binary", variables = c("SV1", "PV1"), expression = "PV1 <= SV1", ID = "m")
-specify.model <- function(s, p, type, variables, time.as.variable = FALSE, expression, ID = "new.model"){
+specify.model <- function(s, p, type, variables, expression, ID = "new.model"){
   ## Check type is one of three possibilities
   if(!type=="binary"&&!type=="continuous"){
     stop("argument 'type' is not 'binary' or 'continuous'")
@@ -59,14 +60,6 @@ specify.model <- function(s, p, type, variables, time.as.variable = FALSE, expre
   if(any(is.na(match(variables,c(s$variable.names, p$variable.names))))){
     stop("one or more variables specified are not included in stage or populations objects provided")
   }
-  }
-  ## If time.as.variable is true, add "time" to list of variables.
-  if(time.as.variable){
-    if(all(is.na(variables))){
-      variables <- "time"
-    } else {
-      variables <- c(variables, "time")
-    }
   }
   ## Assemble into model structure
   out <- list(

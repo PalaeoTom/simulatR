@@ -84,6 +84,15 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
         out <- 0
       }
     } else {
+      ## get levels
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+        }
+      }
       ## match model variables to stage and population variables
       vars <- lapply(1:length(m$"variables"), function(x){
         ## variable in stage, not populations
@@ -104,23 +113,26 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
         if(m$"variables"[x] == "time"){
           var <- abs(t1-t0)
         }
-        ## if present in neither and not "time, break and request re-label
-        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+        ## if variables == "regions", return 'regions' matrix from stage
+        if(m$"variables"[x] == "regions"){
+          var <- s$regions
+        }
+        ## if variables == "distances", return 'distances' matrix from stage
+        if(m$"variables"[x] == "dimensions"){
+          var <- s$dimensions
+        }
+        ## if variables == "dimensions", return 'dimensions' matrix from stage
+        if(m$"variables"[x] == "distances"){
+          var <- s$distances
+        }
+        ## if present in neither and not 'time', 'regions', 'distances', nor 'dimensions', break and request re-label
+        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time" && !m$"variables"[x] == "regions" && !m$"variables"[x] == "dimensions" && !m$"variables"[x] == "distances"){
           stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
         }
         return(var)
       })
       ## convert isolate variables into objects
       for(i in 1:length(vars)) assign(m$"variables"[i], vars[[i]])
-      ## get levels
-      levels <- 1:(m$level-1)
-      ## convert models into values, start with lv1 models
-      for(i in levels){
-        ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
-        }
-      }
       ## evaluate model and return 1 if true, 0 if false
       if(eval(parse(text = m$"expression"))){
         out <- 1
@@ -145,6 +157,15 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     } else {
+      ## get levels of model
+      levels <- 1:(m$level-1)
+      ## convert models into values, start with lv1 models
+      for(i in levels){
+        ## isolate models of that level
+        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+        }
+      }
       ## match model variables to stage and population variables
       vars <- lapply(1:length(m$"variables"), function(x){
         ## variable in stage, not populations
@@ -165,23 +186,26 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
         if(m$"variables"[x] == "time"){
           var <- abs(t1-t0)
         }
-        ## if present in neither and not "time, break and request re-label
-        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time"){
+        ## if variables == "regions", return 'regions' matrix from stage
+        if(m$"variables"[x] == "regions"){
+          var <- s$regions
+        }
+        ## if variables == "distances", return 'distances' matrix from stage
+        if(m$"variables"[x] == "dimensions"){
+          var <- s$dimensions
+        }
+        ## if variables == "dimensions", return 'dimensions' matrix from stage
+        if(m$"variables"[x] == "distances"){
+          var <- s$distances
+        }
+        ## if present in neither and not 'time', 'regions', 'distances', nor 'dimensions', break and request re-label
+        if(!any(s$"variable.names" == m$"variables"[x]) && !any(p0$"variable.names" == m$"variables"[x]) && !m$"variables"[x] == "time" && !m$"variables"[x] == "regions" && !m$"variables"[x] == "dimensions" && !m$"variables"[x] == "distances"){
           stop(paste0("model variable ", x, " is not 'time', or a stage or population variable. Please ensure model correctly specifies 'time', or a stage or population variable"))
         }
         return(var)
       })
       ## convert isolate variables into objects
       for(i in 1:length(vars)) assign(m$"variables"[i], vars[[i]])
-      ## get levels of model
-      levels <- 1:(m$level-1)
-      ## convert models into values, start with lv1 models
-      for(i in levels){
-        ## isolate models of that level
-        for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
-        }
-      }
       ## evaluate model and return value
       out <- eval(parse(text = m$expression))
     }
