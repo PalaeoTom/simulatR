@@ -132,8 +132,8 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       ## sort models out in order of nested.m
       models.out <- models.out[order(names(models.out))]
     } else {
-      ## find the level 2 models
-      l2.m <- which(sapply(1:length(m), function(x) m[[x]]$level) == 2)
+      ## find the models that are level 2 or higher
+      l2.m <- which(sapply(1:length(m), function(x) m[[x]]$level) >= 2)
       ## generate models.out object
       models.out <- c()
       ##
