@@ -6,7 +6,7 @@
 #' in the order they appear in the list. For example, if you don't assign names to your models via names(), the first model in the list will be assigned the identifier "m1", the second "m2", and so forth.
 #' Several core stage and simulation elements can be called by including specific strings in the 'variables' vector: 'time' calls the time elapsed between the previous time bin and
 #' the present; 'regions' calls the 'regions' stage object (a matrix specifying region numbers); 'dimensions' the 'dimensions' stage object (a matrix specifying the area of each region);
-#' 'distances' the 'distances' stage object (a square matrix specifying the distances separating each region).
+#' 'distances' the 'distances' stage object (a square matrix specifying the distances separating each region); "residents" calls the number of populations present in the region of interest.
 #'
 #' @param s A stage object
 #' @param p A populations object
@@ -85,7 +85,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
   }
   ## Check variables are present in either s or p
   if(!all(is.na(variables))){
-    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "time", "regions", "distances", "dimensions"))))){
+    if(any(is.na(match(variables,c(s$variable.names, p$variable.names, "time", "regions", "distances", "dimensions", "residents"))))){
       stop("one or more variables specified are not included in stage or populations objects provided")
     }
   }
