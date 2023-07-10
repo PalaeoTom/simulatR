@@ -75,7 +75,7 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r, t0 = t0, t1 = t1), pos = .GlobalEnv)
         }
       }
       if(eval(parse(text = m$"expression"))){
@@ -90,7 +90,7 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r, t0 = t0, t1 = t1), pos = .GlobalEnv)
         }
       }
       ## match model variables to stage and population variables
@@ -151,7 +151,7 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r, t0 = t0, t1 = t1), pos = .GlobalEnv)
         }
       }
       ## evaluate model and return value
@@ -163,7 +163,7 @@ parse.nested.model <- function(m, s, p0, t0, t1, p, r){
       for(i in levels){
         ## isolate models of that level
         for(a in grep(paste0(".",i), m$nested.models, fixed = T)){
-          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r), pos = .GlobalEnv)
+          assign(m$nested.models[a], parse.model(m = m$models[[a]], s = s, p0 = p0, p = p, r = r, t0 = t0, t1 = t1), pos = .GlobalEnv)
         }
       }
       ## match model variables to stage and population variables
