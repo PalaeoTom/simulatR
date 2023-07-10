@@ -126,7 +126,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       models.out <- m$models
       m$models <- NULL
       ## combine with updated m for final models.out
-      models.out <- list(m, models.out)
+      models.out <- c(list(m), models.out)
       ## update names
       names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
     } else {
