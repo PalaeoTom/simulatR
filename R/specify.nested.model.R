@@ -130,7 +130,7 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       ## update names
       names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
       ## sort models out in order of nested.m
-      models.out <- models.out[[order(nested.m)]]
+      models.out <- models.out[order(names(models.out))]
     } else {
       ## find the level 2 models
       l2.m <- which(sapply(1:length(m), function(x) m[[x]]$level) == 2)
@@ -146,13 +146,14 @@ specify.nested.model <- function(s, p, m, type, variables, expression, ID = "new
       ## update names
       names(models.out) <- sapply(1:length(models.out), function(z) models.out[[z]]$ID)
       ## sort models out in order of nested.m
-      models.out <- models.out[[order(nested.m)]]
+      models.out <- models.out[order(names(models.out))]
     }
   } else {
     if(class(m) == "model"){
       models.out <- list(m)
     } else {
       models.out <- m
+      models.out <- models.out[order(names(models.out))]
     }
   }
   ## Assemble into model structure
