@@ -20,7 +20,7 @@
 #'
 #' # estimate species carrying capacity for each region
 #' capacities <- SAR_power(example)
-SAR.power <- function(area, non0 = F){
+SAR.power <- function(area, non0 = T){
   ## check input is a matrix
   if(!is.matrix(area)){
     stop("input is not a matrix")
