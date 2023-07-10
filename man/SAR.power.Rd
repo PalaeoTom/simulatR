@@ -4,7 +4,7 @@
 \alias{SAR.power}
 \title{Calculate carrying capacity for each region using power model with default parameters}
 \usage{
-SAR.power(area, non0 = F)
+SAR.power(area, non0 = T)
 }
 \arguments{
 \item{area}{A matrix specifying the size (in hectares) of each region of a stage.}
